@@ -10,11 +10,25 @@ From Beginner to iOS App Developer with Just One Course! Fully Updated with a Co
 
 https://stories.appbot.co/how-i-got-2-3m-app-downloads-without-spending-a-cent-on-marketing-f4823b6bc779
 
+#### Design and Ideas
+
+https://pttrns.com
+
+#### Colors
+
+https://colorhunt.co
+
+https://flatuicolors.com
+
+https://www.materialpalette.com
+
+#### Icons
+
+https://iconstore.co
+
 #### Links
 
 https://www.appbrewery.co/p/ios-course-resources
-
-https://colorhunt.co
 
 https://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions
 
