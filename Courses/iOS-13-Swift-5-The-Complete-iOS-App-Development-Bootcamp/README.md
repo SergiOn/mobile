@@ -28,6 +28,8 @@ https://iconstore.co
 
 #### Links
 
+https://developer.apple.com/documentation
+
 https://www.appbrewery.co/p/ios-course-resources
 
 https://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions
@@ -35,4 +37,6 @@ https://www.paintcodeapp.com/news/ultimate-guide-to-iphone-resolutions
 https://github.com/dkhamsing/open-source-ios-apps
 
 https://medium.mybridge.co/21-amazing-open-source-ios-apps-written-in-swift-5e835afee98e
+
+https://stackoverflow.com/questions/32036146/how-to-play-a-sound-using-swift
 
