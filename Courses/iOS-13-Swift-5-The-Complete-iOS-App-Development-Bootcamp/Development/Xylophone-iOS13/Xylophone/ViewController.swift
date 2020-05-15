@@ -18,6 +18,14 @@ class ViewController: UIViewController {
     }
 
     @IBAction func keyPressed(_ sender: UIButton) {
+        let color = sender.backgroundColor
+        let colorAlpha = color?.withAlphaComponent(0.5)
+        sender.backgroundColor = colorAlpha
+        
+        UIView.animate(withDuration: 1.0, animations: {
+           sender.backgroundColor = color
+        })
+
         playSound(soundName: sender.currentTitle!)
     }
 
