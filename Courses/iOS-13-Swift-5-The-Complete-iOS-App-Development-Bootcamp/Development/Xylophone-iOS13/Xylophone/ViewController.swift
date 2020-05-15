@@ -18,13 +18,22 @@ class ViewController: UIViewController {
     }
 
     @IBAction func keyPressed(_ sender: UIButton) {
-        let color = sender.backgroundColor
-        let colorAlpha = color?.withAlphaComponent(0.5)
-        sender.backgroundColor = colorAlpha
-        
-        UIView.animate(withDuration: 1.0, animations: {
-           sender.backgroundColor = color
+//        let color = sender.backgroundColor
+//        let colorAlpha = color?.withAlphaComponent(0.5)
+//        sender.backgroundColor = colorAlpha
+
+        let alpha = sender.alpha
+        sender.alpha = 0.5
+
+        UIView.animate(withDuration: 0.2/*1.0*/, animations: {
+//            sender.backgroundColor = color
+            sender.alpha = alpha
         })
+
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+////            sender.alpha = alpha
+//            sender.alpha = 1.0
+//        }
 
         playSound(soundName: sender.currentTitle!)
     }
