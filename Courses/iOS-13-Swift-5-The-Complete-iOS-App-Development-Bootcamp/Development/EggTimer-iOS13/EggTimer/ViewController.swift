@@ -19,19 +19,24 @@ class ViewController: UIViewController {
 
     @IBAction func hardnessSelected(_ sender: UIButton) {
         let hardness: String = sender.currentTitle!
-        var secondsRemaining = eggTimes[hardness] ?? defaultSecondsRemaining
+        let totalTime = eggTimes[hardness] ?? defaultSecondsRemaining
+        var secondsPassed = 0
 
-        progressBar.setProgress(1.0, animated: false)
+//        progressBar.setProgress(1.0, animated: false)
 
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
-            print(secondsRemaining)
-            if secondsRemaining > 0 {
-                secondsRemaining -= Int(Timer.timeInterval)
+            print(totalTime)
+            print(secondsPassed)
+
+            if secondsPassed < totalTime {
+                secondsPassed += Int(Timer.timeInterval)
             } else {
                 Timer.invalidate()
                 self.titleLabel.text = "DONE!"
             }
+            let percentageProgress = secondsPassed / totalTime
+            print(Float(percentageProgress))
         }
     }
     
