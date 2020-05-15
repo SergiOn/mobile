@@ -42,3 +42,5 @@ https://stackoverflow.com/questions/32036146/how-to-play-a-sound-using-swift
 
 https://learnappmaking.com/timer-swift-how-to
 
+https://docs.swift.org/swift-book/LanguageGuide/Closures.html
+
