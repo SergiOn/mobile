@@ -40,3 +40,5 @@ https://medium.mybridge.co/21-amazing-open-source-ios-apps-written-in-swift-5e83
 
 https://stackoverflow.com/questions/32036146/how-to-play-a-sound-using-swift
 
+https://learnappmaking.com/timer-swift-how-to
+

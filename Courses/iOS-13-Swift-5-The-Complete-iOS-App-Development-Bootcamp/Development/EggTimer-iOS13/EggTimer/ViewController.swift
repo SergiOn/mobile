@@ -9,28 +9,22 @@
 import UIKit
 
 class ViewController: UIViewController {
-    
-    let softTime = 5
-    let mediumTime = 7
-    let hardTime = 12
-    
-    let eggTimes = ["Soft": 5, "Medium": 7, "Hard": 12]
+
+    let eggTimes = ["Soft": 300, "Medium": 420, "Hard": 720]
+    let defaultSecondsRemaining = 60
 
     @IBAction func hardnessSelected(_ sender: UIButton) {
         let hardness: String = sender.currentTitle!
-        var time: Int
+        var secondsRemaining = eggTimes[hardness] ?? defaultSecondsRemaining
 
-        time = eggTimes[hardness]!
-
-        switch hardness {
-        case "Soft":
-            time = softTime
-        case "Medium":
-            time = mediumTime
-        default:
-            time = hardTime
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { (Timer) in
+            print(secondsRemaining)
+            if secondsRemaining > 0 {
+                secondsRemaining -= 1
+            } else {
+                Timer.invalidate()
+            }
         }
-        
     }
-
+    
 }
