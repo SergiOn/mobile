@@ -44,3 +44,5 @@ https://learnappmaking.com/timer-swift-how-to
 
 https://docs.swift.org/swift-book/LanguageGuide/Closures.html
 
+https://stackoverflow.com/questions/5770126/how-can-i-change-the-copyright-template-in-xcode-4
+
