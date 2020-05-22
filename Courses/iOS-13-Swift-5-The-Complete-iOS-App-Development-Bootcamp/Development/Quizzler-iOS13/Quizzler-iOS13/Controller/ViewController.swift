@@ -10,17 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var trueButton: UIButton!
     @IBOutlet weak var falseButton: UIButton!
 
-    let quizBrain = QuizBrain()
+    var quizBrain = QuizBrain()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+
         updateUi()
     }
 
@@ -31,25 +32,24 @@ class ViewController: UIViewController {
 
         if userGotItRight {
             sender.backgroundColor = UIColor.green
-            print("Right!")
         } else {
             sender.backgroundColor = UIColor.red
-            print("Wrong!")
         }
-        
+
         quizBrain.nextQuestion()
 
         Timer.scheduledTimer(withTimeInterval: 0.2, repeats: false) { (Timer) in
             self.updateUi()
         }
     }
-    
+
     func updateUi() {
         questionLabel.text = quizBrain.getQuestionText()
         progressBar.progress = quizBrain.getProgress()
+        scoreLabel.text = "Score: \(quizBrain.getScore())"
         trueButton.backgroundColor = UIColor.clear
         falseButton.backgroundColor = UIColor.clear
     }
-    
+
 }
 
