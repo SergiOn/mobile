@@ -31,14 +31,26 @@ class CalculateViewController: UIViewController {
     }
 
     @IBAction func calculatePressed(_ sender: UIButton) {
-        let height = heightSlider.value
-        let weight = weightSlider.value
-        let bmi = weight / pow(height, 2)
-        print(bmi)
+//        let height = heightSlider.value
+//        let weight = weightSlider.value
+//        let bmi = weight / pow(height, 2)
         
 //        let secondVC = SecondViewController()
 //        secondVC.bmiValue = String(format: "%.1f", bmi)
 //        self.present(secondVC, animated: true, completion: nil)
+        
+        performSegue(withIdentifier: "goToResult", sender: self)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let height = heightSlider.value
+        let weight = weightSlider.value
+        let bmi = weight / pow(height, 2)
+
+        if segue.identifier == "goToResult" {
+            let destinationVC = segue.destination as! ResultViewController
+            destinationVC.bmiValue = String(format: "%.1f", bmi)
+        }
     }
 
 }
