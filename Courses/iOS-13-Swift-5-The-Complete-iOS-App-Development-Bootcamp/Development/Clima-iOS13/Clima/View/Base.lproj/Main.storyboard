@@ -128,7 +128,7 @@
         <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="sun.max" catalog="system" width="128" height="124"/>
         <namedColor name="weatherColor">
-            <color red="0.080000000000000002" green="0.24199999999999999" blue="0.26200000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.079999998211860657" green="0.24199999868869781" blue="0.26199999451637268" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
