@@ -18,9 +18,8 @@ struct WeatherManager {
     
     var delegate: WeatherManagerDelegate?
     
-    func fetchWeather(_ cityName: String) {
+    func fetchWeather(cityName: String) {
         let urlString = "\(weatherUrl)&q=\(cityName)"
-//        print(urlString)
         performRequest(with: urlString)
     }
     
@@ -65,19 +64,6 @@ struct WeatherManager {
         } catch {
             delegate?.didFailWithError(error: error)
             return nil
-        }
-    }
-    
-    func handle(data: Data?, response: URLResponse?, error: Error?) {
-        if error != nil {
-            print(error!)
-            return
-        }
-        
-        if let safeData = data {
-            let dataString = String(data: safeData, encoding: String.Encoding.utf8)
-            print(dataString!)
-            return
         }
     }
 
