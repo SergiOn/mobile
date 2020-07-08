@@ -32,24 +32,26 @@ class ChatViewController: UIViewController {
     }
     
     func loadMessages() {
-        db.collection(K.FStore.collectionName).addSnapshotListener { (querySnapshot, error) in
-            if let e = error {
-                print("Error getting documents: \(e)")
-            } else {
-                self.messages = []
-                
-                for document in querySnapshot!.documents {
-                    let data = document.data()
-                    if let sender = data[K.FStore.senderField] as? String, let body = data[K.FStore.bodyField] as? String {
-                        let newMessage = Message(sender: sender, body: body)
-                        self.messages.append(newMessage)
+        db.collection(K.FStore.collectionName)
+            .order(by: K.FStore.dateField)
+            .addSnapshotListener { (querySnapshot, error) in
+                if let e = error {
+                    print("Error getting documents: \(e)")
+                } else {
+                    self.messages = []
+                    
+                    for document in querySnapshot!.documents {
+                        let data = document.data()
+                        if let sender = data[K.FStore.senderField] as? String, let body = data[K.FStore.bodyField] as? String {
+                            let newMessage = Message(sender: sender, body: body)
+                            self.messages.append(newMessage)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
                     }
                 }
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
             }
-        }
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
@@ -58,7 +60,8 @@ class ChatViewController: UIViewController {
             db.collection(K.FStore.collectionName).addDocument(
                 data: [
                     K.FStore.senderField : messageSender,
-                    K.FStore.bodyField: messageBody
+                    K.FStore.bodyField: messageBody,
+                    K.FStore.dateField: Date().timeIntervalSince1970
             ]) { (error) in
                 if let e = error {
                     print("There was an issue saving data to firestore, \(e)")
