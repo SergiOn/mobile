@@ -32,10 +32,12 @@ class ChatViewController: UIViewController {
     }
     
     func loadMessages() {
-        db.collection(K.FStore.collectionName).getDocuments() { (querySnapshot, error) in
+        db.collection(K.FStore.collectionName).addSnapshotListener { (querySnapshot, error) in
             if let e = error {
                 print("Error getting documents: \(e)")
             } else {
+                self.messages = []
+                
                 for document in querySnapshot!.documents {
                     let data = document.data()
                     if let sender = data[K.FStore.senderField] as? String, let body = data[K.FStore.bodyField] as? String {
