@@ -16,11 +16,7 @@ class ChatViewController: UIViewController {
     
     let db = Firestore.firestore()
     
-    var messages: [Message] = [
-        Message(sender: "1@2.com", body: "Hey!"),
-        Message(sender: "a@b.com", body: "Hello!"),
-        Message(sender: "1@2.com", body: "What's up?")
-    ]
+    var messages: [Message] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +27,27 @@ class ChatViewController: UIViewController {
         navigationItem.hidesBackButton = true
         
         tableView.register(UINib(nibName: K.cellNibName, bundle: nil), forCellReuseIdentifier: K.cellIdentifier)
+        
+        loadMessages()
+    }
+    
+    func loadMessages() {
+        db.collection(K.FStore.collectionName).getDocuments() { (querySnapshot, error) in
+            if let e = error {
+                print("Error getting documents: \(e)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let data = document.data()
+                    if let sender = data[K.FStore.senderField] as? String, let body = data[K.FStore.bodyField] as? String {
+                        let newMessage = Message(sender: sender, body: body)
+                        self.messages.append(newMessage)
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
     }
     
     @IBAction func sendPressed(_ sender: UIButton) {
@@ -51,21 +68,6 @@ class ChatViewController: UIViewController {
                     }
                 }
             }
-            
-            var ref: DocumentReference? = nil
-            ref = db.collection("users").addDocument(data: [
-                "first": "Ada",
-                "last": "Lovelace",
-                "born": 1815
-            ]) { err in
-                if let err = err {
-                    print("Error adding document: \(err)")
-                } else {
-                    print("Document added with ID: \(ref!.documentID)")
-                }
-            }
-            
-            
         }
     }
     
