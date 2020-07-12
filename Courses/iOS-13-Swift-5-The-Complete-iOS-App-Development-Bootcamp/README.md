@@ -58,3 +58,7 @@ https://firebase.google.com/docs/ios/setup#available-pods
 
 https://console.firebase.google.com/
 
+https://developer.apple.com/library/archive/referencelibrary/GettingStarted/DevelopiOSAppsSwift/WorkWithViewControllers.html#//apple_ref/doc/uid/TP40015214-CH6-SW1
+
+https://developer.apple.com/documentation/uikit/app_and_environment/managing_your_app_s_life_cycle
+
