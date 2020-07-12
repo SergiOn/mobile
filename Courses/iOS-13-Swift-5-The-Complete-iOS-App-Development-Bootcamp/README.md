@@ -64,3 +64,5 @@ https://developer.apple.com/documentation/uikit/app_and_environment/managing_you
 
 https://fonts.google.com/specimen/Pacifico?query=pacif#standard-styles
 
+https://hn.algolia.com/api
+
