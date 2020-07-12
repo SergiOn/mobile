@@ -32,6 +32,7 @@
 		C5F6BF1924BB8AD800F69421 /* PostData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostData.swift; sourceTree = "<group>"; };
 		C5F6BF1C24BB986400F69421 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		C5F6BF1E24BB9D1600F69421 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
+		C5F6BF2024BBB02D00F69421 /* H4X0R News SUI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "H4X0R News SUI.entitlements"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +65,7 @@
 		C5F6BF0124BB81D900F69421 /* H4X0R News SUI */ = {
 			isa = PBXGroup;
 			children = (
+				C5F6BF2024BBB02D00F69421 /* H4X0R News SUI.entitlements */,
 				C5F6BF0224BB81D900F69421 /* AppDelegate.swift */,
 				C5F6BF0424BB81D900F69421 /* SceneDelegate.swift */,
 				C5F6BF1B24BB983F00F69421 /* View */,
@@ -316,6 +318,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "H4X0R News SUI/H4X0R News SUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"H4X0R News SUI/Preview Content\"";
 				DEVELOPMENT_TEAM = 8C82MG3N32;
@@ -327,6 +330,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.serhiionyshchenko.H4X0R-News-SUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -336,6 +340,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "H4X0R News SUI/H4X0R News SUI.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"H4X0R News SUI/Preview Content\"";
 				DEVELOPMENT_TEAM = 8C82MG3N32;
@@ -347,6 +352,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.serhiionyshchenko.H4X0R-News-SUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
