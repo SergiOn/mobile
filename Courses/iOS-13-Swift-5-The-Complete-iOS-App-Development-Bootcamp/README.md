@@ -66,3 +66,5 @@ https://fonts.google.com/specimen/Pacifico?query=pacif#standard-styles
 
 https://hn.algolia.com/api
 
+https://stackoverflow.com/questions/6662395/xcode-intellisense-meaning-of-letters-in-colored-boxes-like-f-t-c-m-p-c-k-etc
+
