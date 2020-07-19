@@ -11,10 +11,10 @@ import UIKit
 class TodoListViewController: UITableViewController {
 
 //    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
-    var itemStringArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon",
-                     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-                     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
-    ]
+//    var itemStringArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon",
+//                     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+//                     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+//    ]
     var itemArray = [Item]()
     
     let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Items.plist")
@@ -22,11 +22,13 @@ class TodoListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        itemStringArray.forEach { (titel) in
-            let item = Item()
-            item.title = titel
-            itemArray.append(item)
-        }
+//        itemStringArray.forEach { (titel) in
+//            let item = Item()
+//            item.title = titel
+//            itemArray.append(item)
+//        }
+        
+        loadItems()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,6 +82,18 @@ class TodoListViewController: UITableViewController {
             try data.write(to: self.dataFilePath!)
         } catch {
             print("Error encoding item array, \(error)")
+        }
+    }
+    
+    func loadItems() {
+        if let data = try? Data(contentsOf: dataFilePath!) {
+            let decoder = PropertyListDecoder()
+            
+            do {
+                itemArray = try decoder.decode([Item].self, from: data)
+            } catch {
+                print("Error fetching data from context \(error)")
+            }
         }
     }
 }
