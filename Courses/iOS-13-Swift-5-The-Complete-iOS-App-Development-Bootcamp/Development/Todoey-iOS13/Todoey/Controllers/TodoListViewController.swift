@@ -45,6 +45,8 @@ class TodoListViewController: UITableViewController {
         tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
         self.saveItems()
+//        itemArray[indexPath.row].setValue(true, forKey: "done")
+
     }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
