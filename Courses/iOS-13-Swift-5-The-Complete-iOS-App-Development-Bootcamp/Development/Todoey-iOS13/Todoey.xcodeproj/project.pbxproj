@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		C538FD3B24C4BE7E000F6F00 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C538FD3924C4BE7E000F6F00 /* DataModel.xcdatamodeld */; };
-		C5EF829F24C4423C0049D42B /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5EF829E24C4423C0049D42B /* Item.swift */; };
 		EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4F9239524DB00FB933B /* AppDelegate.swift */; };
 		EB2BE4FE239524DB00FB933B /* TodoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2BE4FD239524DB00FB933B /* TodoListViewController.swift */; };
 		EB2BE501239524DB00FB933B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB2BE4FF239524DB00FB933B /* Main.storyboard */; };
@@ -18,7 +17,6 @@
 
 /* Begin PBXFileReference section */
 		C538FD3A24C4BE7E000F6F00 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
-		C5EF829E24C4423C0049D42B /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		EB2BE4F6239524DB00FB933B /* Todoey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Todoey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2BE4F9239524DB00FB933B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB2BE4FD239524DB00FB933B /* TodoListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoListViewController.swift; sourceTree = "<group>"; };
@@ -43,7 +41,6 @@
 			isa = PBXGroup;
 			children = (
 				C538FD3924C4BE7E000F6F00 /* DataModel.xcdatamodeld */,
-				C5EF829E24C4423C0049D42B /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -175,7 +172,6 @@
 			files = (
 				EB2BE4FE239524DB00FB933B /* TodoListViewController.swift in Sources */,
 				C538FD3B24C4BE7E000F6F00 /* DataModel.xcdatamodeld in Sources */,
-				C5EF829F24C4423C0049D42B /* Item.swift in Sources */,
 				EB2BE4FA239524DB00FB933B /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
