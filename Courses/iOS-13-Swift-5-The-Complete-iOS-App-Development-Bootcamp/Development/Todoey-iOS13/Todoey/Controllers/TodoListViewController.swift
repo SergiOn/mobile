@@ -46,7 +46,9 @@ class TodoListViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         self.saveItems()
 //        itemArray[indexPath.row].setValue(true, forKey: "done")
-
+//        context.delete(itemArray[indexPath.row])
+//        itemArray.remove(at: indexPath.row)
+//        self.saveItems()
     }
 
     @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
