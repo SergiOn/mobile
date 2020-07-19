@@ -25,13 +25,7 @@ class TodoListViewController: UITableViewController {
         
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-//        itemStringArray.forEach { (titel) in
-//            let item = Item()
-//            item.title = titel
-//            itemArray.append(item)
-//        }
-        
-//        loadItems()
+        loadItems()
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,16 +79,14 @@ class TodoListViewController: UITableViewController {
         }
     }
     
-//    func loadItems() {
-//        if let data = try? Data(contentsOf: dataFilePath!) {
-//            let decoder = PropertyListDecoder()
-//
-//            do {
-//                itemArray = try decoder.decode([Item].self, from: data)
-//            } catch {
-//                print("Error fetching data from context \(error)")
-//            }
-//        }
-//    }
+    func loadItems() {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        
+        do {
+            itemArray = try context.fetch(request)
+        } catch {
+            print("Error fetching data from context \(error)")
+        }
+    }
 }
 
