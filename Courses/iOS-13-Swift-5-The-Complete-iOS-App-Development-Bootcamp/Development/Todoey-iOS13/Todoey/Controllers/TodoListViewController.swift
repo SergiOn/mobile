@@ -11,18 +11,18 @@ import CoreData
 
 class TodoListViewController: UITableViewController {
 
-//    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
-//    var itemStringArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon",
-//                     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
-//                     "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+//    var itemStringArray = [
+//        "Find Mike", "Buy Eggos", "Destroy Demogorgon",
+//        "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
 //    ]
+
     var itemArray = [Item]()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         loadItems()
@@ -42,7 +42,6 @@ class TodoListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
-        tableView.reloadData()
         tableView.deselectRow(at: indexPath, animated: true)
         self.saveItems()
 //        itemArray[indexPath.row].setValue(true, forKey: "done")
@@ -60,7 +59,6 @@ class TodoListViewController: UITableViewController {
             let newItem = Item(context: self.context)
             newItem.title = textField.text!
             self.itemArray.append(newItem)
-            self.tableView.reloadData()
             textField = UITextField()
             self.saveItems()
         }
@@ -81,16 +79,35 @@ class TodoListViewController: UITableViewController {
         } catch {
             print("Error saving context \(error)")
         }
+        tableView.reloadData()
     }
     
-    func loadItems() {
-        let request: NSFetchRequest<Item> = Item.fetchRequest()
-        
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
         do {
             itemArray = try context.fetch(request)
         } catch {
             print("Error fetching data from context \(error)")
         }
+        tableView.reloadData()
     }
+    
 }
 
+// MARK: UISearchBarDelegate
+
+extension TodoListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        request.predicate = predicate
+        
+        let sortDescriptor = NSSortDescriptor(key: "title", ascending: true)
+        request.sortDescriptors = [sortDescriptor]
+        
+        loadItems(with: request)
+        
+        print(searchBar.text!)
+    }
+}
