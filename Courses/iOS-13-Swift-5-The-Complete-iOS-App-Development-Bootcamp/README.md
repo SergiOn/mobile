@@ -72,3 +72,11 @@ https://academy.realm.io/posts/nspredicate-cheatsheet/
 
 https://nshipster.com/nspredicate/
 
+https://realm.io/
+
+https://realm.io/blog/introducing-realm/
+
+https://realm.io/docs/swift/latest
+
+https://github.com/realm/realm-cocoa
+
