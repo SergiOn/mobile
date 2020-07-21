@@ -24,19 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print("didFinishLaunchingWithOptions")
         
-        let data = Data()
-        data.name = "Angela"
-        data.age = 12
-        
         do {
             let realm = try Realm()
-            try realm.write {
-                realm.add(data)
-            }
         } catch {
             print("Error initialising new realm, \(error)")
         }
-        
         
         return true
     }
