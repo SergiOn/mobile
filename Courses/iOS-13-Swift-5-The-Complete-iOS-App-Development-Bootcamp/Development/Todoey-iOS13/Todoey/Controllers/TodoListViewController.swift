@@ -59,6 +59,18 @@ class TodoListViewController: UITableViewController {
 //        itemArray[indexPath.row].done = !itemArray[indexPath.row].done
 //        self.saveItems()
         
+        if let item = todoItems?[indexPath.row] {
+            do {
+                try self.realm.write {
+                    item.done = !item.done
+                }
+            } catch {
+                print("Error saving done status, \(error)")
+            }
+            
+            tableView.reloadData()
+        }
+        
         tableView.deselectRow(at: indexPath, animated: true)
         
 //        itemArray[indexPath.row].setValue(true, forKey: "done")
