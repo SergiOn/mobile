@@ -80,3 +80,5 @@ https://realm.io/docs/swift/latest
 
 https://github.com/realm/realm-cocoa
 
+https://github.com/SwipeCellKit/SwipeCellKit
+
