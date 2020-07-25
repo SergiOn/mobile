@@ -84,3 +84,7 @@ https://github.com/SwipeCellKit/SwipeCellKit
 
 https://github.com/wowansm/Chameleon/tree/swift5
 
+https://developer.apple.com/programs/
+
+https://appstoreconnect.apple.com/
+
