@@ -82,3 +82,5 @@ https://github.com/realm/realm-cocoa
 
 https://github.com/SwipeCellKit/SwipeCellKit
 
+https://github.com/wowansm/Chameleon/tree/swift5
+
