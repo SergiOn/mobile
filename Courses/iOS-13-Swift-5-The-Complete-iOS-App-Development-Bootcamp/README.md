@@ -88,3 +88,7 @@ https://developer.apple.com/programs/
 
 https://appstoreconnect.apple.com/
 
+https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID259
+
+https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID262
+
