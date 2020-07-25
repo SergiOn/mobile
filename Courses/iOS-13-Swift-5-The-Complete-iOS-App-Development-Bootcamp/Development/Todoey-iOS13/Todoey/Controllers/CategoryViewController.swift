@@ -22,7 +22,6 @@ class CategoryViewController: SwipeTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadCategories()
-        tableView.rowHeight = 80.0
     }
     
     //MARK: - TableView Datasource Methods
@@ -96,7 +95,7 @@ class CategoryViewController: SwipeTableViewController {
                     self.realm.delete(categoryForDeletion)
                 }
             } catch {
-                print("Error saving done status, \(error)")
+                print("Error deleting Category, \(error)")
             }
         }
     }
