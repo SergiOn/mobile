@@ -12,13 +12,14 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var displayLabel: UILabel!
     
-    var isFinishedTypingNumber: Bool = true
+    private var isFinishedTypingNumber: Bool = true
     
     @IBAction func calcButtonPressed(_ sender: UIButton) {
         
         //What should happen when a non-number button is pressed
-    
-        print("calcButtonPressed", sender)
+        isFinishedTypingNumber = true
+        
+        let number = Double(displayLabel.text!) ?? 0        
     }
 
     
