@@ -32,14 +32,22 @@ class ViewController: UIViewController {
         
         isFinishedTypingNumber = true
         
+//        if let calcMethod = sender.currentTitle {
+//            if calcMethod == "+/-" {
+//                displayValue *= -1
+//            } else if calcMethod == "AC" {
+//                displayValue = 0
+//            } else if calcMethod == "%" {
+//                displayValue /= 100
+//            }
+//        }
+        
         if let calcMethod = sender.currentTitle {
-            if calcMethod == "+/-" {
-                displayValue *= -1
-            } else if calcMethod == "AC" {
-                displayValue = 0
-            } else if calcMethod == "%" {
-                displayValue /= 100
+            let calculator = CalculatorLogic(number: displayValue)
+            guard let result = calculator.calculate(symbol: calcMethod) else {
+                fatalError("The result of the calculation is nil")
             }
+            displayValue = result
         }
     }
 
