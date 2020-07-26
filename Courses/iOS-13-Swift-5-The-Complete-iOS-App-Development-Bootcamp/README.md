@@ -92,3 +92,7 @@ https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID259
 
 https://docs.swift.org/swift-book/LanguageGuide/Properties.html#ID262
 
+https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html
+
+https://docs.swift.org/swift-book/ReferenceManual/Types.html#grammar_tuple-type
+
