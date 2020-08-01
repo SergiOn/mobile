@@ -96,3 +96,7 @@ https://docs.swift.org/swift-book/LanguageGuide/AccessControl.html
 
 https://docs.swift.org/swift-book/ReferenceManual/Types.html#grammar_tuple-type
 
+https://developer.apple.com/machine-learning/
+
+https://developer.apple.com/machine-learning/models/
+
