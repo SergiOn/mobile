@@ -100,3 +100,7 @@ https://developer.apple.com/machine-learning/
 
 https://developer.apple.com/machine-learning/models/
 
+https://pypi.org/project/coremltools/
+
+https://apple.github.io/coremltools/
+
