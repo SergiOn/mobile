@@ -26,6 +26,10 @@ https://www.materialpalette.com
 
 https://iconstore.co
 
+#### Git Large File Storage
+
+https://towardsdatascience.com/uploading-large-files-to-github-dbef518fa1a
+
 #### Links
 
 https://developer.apple.com/documentation
