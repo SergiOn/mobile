@@ -16,6 +16,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
 
     @IBOutlet weak var imageView: UIImageView!
     
+    let wikipediaURl = "https://en.wikipedia.org/w/api.php"
     let imagePicker = UIImagePickerController()
     
     override func viewDidLoad() {
@@ -49,11 +50,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         
         let request = VNCoreMLRequest(model: model) { (request, error) in
-            guard let result = request.results?.first as? VNClassificationObservation else {
+            guard let classification = request.results?.first as? VNClassificationObservation else {
                 fatalError("Could not complete classfication")
             }
             
-            self.navigationItem.title = result.identifier.capitalized
+            self.navigationItem.title = classification.identifier.capitalized
+            self.requestInfo(flowerName: classification.identifier)
         }
         
         let handler = VNImageRequestHandler(ciImage: flowerImage)
@@ -63,6 +65,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
         catch {
             print(error)
+        }
+    }
+    
+    func requestInfo(flowerName: String) {
+        let parameters: [String: String] = [
+            "format" : "json",
+            "action" : "query",
+            "prop" : "extracts",
+            "exintro" : "",
+            "explaintext" : "",
+            "titles" : flowerName,
+            "indexpageids" : "",
+            "redirects" : "1",
+        ]
+        
+        AF.request(wikipediaURl, method: .get, parameters: parameters).responseJSON { (response) in
+
+            switch response.result {
+            case .success(let data):
+                print(data)
+                print("Successful")
+            case .failure(let error):
+                print("Error \(String(describing: error))")
+            }
         }
     }
 

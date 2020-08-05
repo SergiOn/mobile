@@ -112,3 +112,5 @@ https://github.com/Alamofire/Alamofire
 
 https://github.com/SwiftyJSON/SwiftyJSON
 
+https://www.mediawiki.org/wiki/API:Main_page
+
