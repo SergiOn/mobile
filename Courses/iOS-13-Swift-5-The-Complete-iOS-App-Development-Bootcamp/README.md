@@ -108,3 +108,7 @@ https://pypi.org/project/coremltools/
 
 https://apple.github.io/coremltools/
 
+https://github.com/Alamofire/Alamofire
+
+https://github.com/SwiftyJSON/SwiftyJSON
+
