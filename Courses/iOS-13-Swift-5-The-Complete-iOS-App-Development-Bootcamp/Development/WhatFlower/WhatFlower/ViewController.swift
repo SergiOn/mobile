@@ -86,6 +86,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             case .success(let data):
                 print(data)
                 print("Successful")
+                print(JSON(data))
             case .failure(let error):
                 print("Error \(String(describing: error))")
             }
