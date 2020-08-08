@@ -11,6 +11,7 @@ import CoreML
 import Vision
 import Alamofire
 import SwiftyJSON
+import SDWebImage
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -73,12 +74,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let parameters: [String: String] = [
             "format" : "json",
             "action" : "query",
-            "prop" : "extracts",
+            "prop" : "extracts|pageimages",
             "exintro" : "",
             "explaintext" : "",
             "titles" : flowerName,
             "indexpageids" : "",
             "redirects" : "1",
+            "pithumbsize" : "500"
         ]
         
         AF.request(wikipediaURl, method: .get, parameters: parameters).responseJSON { (response) in
@@ -92,7 +94,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                 let flowerJSON: JSON = JSON(data)
                 let pageId = flowerJSON["query"]["pageids"][0].stringValue
                 let flowerDescription = flowerJSON["query"]["pages"][pageId]["extract"].stringValue
+                let flowerImageURL = flowerJSON["query"]["pages"][pageId]["thumbnail"]["source"].stringValue
+                
                 self.label.text = flowerDescription
+                self.imageView.sd_setImage(with: URL(string: flowerImageURL))
                 
             case .failure(let error):
                 print("Error \(String(describing: error))")

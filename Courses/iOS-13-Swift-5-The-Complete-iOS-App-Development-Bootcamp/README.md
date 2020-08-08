@@ -114,3 +114,5 @@ https://github.com/SwiftyJSON/SwiftyJSON
 
 https://www.mediawiki.org/wiki/API:Main_page
 
+https://github.com/SDWebImage/SDWebImage
+
