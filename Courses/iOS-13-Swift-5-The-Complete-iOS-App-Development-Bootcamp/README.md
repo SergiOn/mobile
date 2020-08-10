@@ -118,3 +118,11 @@ https://github.com/SDWebImage/SDWebImage
 
 https://github.com/BVLC/caffe
 
+https://developer.apple.com/machine-learning/
+
+https://developer.apple.com/machine-learning/create-ml/
+
+https://www.kaggle.com/datasets
+
+https://github.com/awesomedata/awesome-public-datasets
+
