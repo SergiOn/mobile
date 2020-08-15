@@ -128,3 +128,9 @@ https://github.com/awesomedata/awesome-public-datasets
 
 https://arxiv.org/abs/1610.09225
 
+https://developer.twitter.com/en/apply-for-access
+
+https://developer.twitter.com/en/docs/twitter-api/tools-and-libraries
+
+https://github.com/mattdonnelly/Swifter
+
