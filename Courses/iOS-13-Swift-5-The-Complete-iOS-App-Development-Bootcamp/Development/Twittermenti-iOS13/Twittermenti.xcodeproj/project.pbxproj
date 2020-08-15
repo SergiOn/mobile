@@ -15,6 +15,7 @@
 		AD9EC66220FE319B002AE9BF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = AD9EC66120FE319A002AE9BF /* README.md */; };
 		C5181B6024E80C750022E36E /* TweetSentimentClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = C5181B5F24E80C750022E36E /* TweetSentimentClassifier.mlmodel */; };
 		C5181B6324E810310022E36E /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = C5181B6224E810310022E36E /* Swifter */; };
+		C5181B6524E813CC0022E36E /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5181B6424E813CC0022E36E /* Secrets.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 		AD9EC65B20FE2EF7002AE9BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AD9EC66120FE319A002AE9BF /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		C5181B5F24E80C750022E36E /* TweetSentimentClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = TweetSentimentClassifier.mlmodel; path = "../../../Training-NLP/TweetSentimentClassifier.mlmodel"; sourceTree = "<group>"; };
+		C5181B6424E813CC0022E36E /* Secrets.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Secrets.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				AD9EC65620FE2EF7002AE9BF /* Assets.xcassets */,
 				AD9EC65820FE2EF7002AE9BF /* LaunchScreen.storyboard */,
 				AD9EC65B20FE2EF7002AE9BF /* Info.plist */,
+				C5181B6424E813CC0022E36E /* Secrets.plist */,
 				C5181B5F24E80C750022E36E /* TweetSentimentClassifier.mlmodel */,
 			);
 			path = Twittermenti;
@@ -137,6 +140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD9EC65A20FE2EF7002AE9BF /* LaunchScreen.storyboard in Resources */,
+				C5181B6524E813CC0022E36E /* Secrets.plist in Resources */,
 				AD9EC65720FE2EF7002AE9BF /* Assets.xcassets in Resources */,
 				AD9EC66220FE319B002AE9BF /* README.md in Resources */,
 				AD9EC65520FE2EF4002AE9BF /* Main.storyboard in Resources */,
