@@ -16,6 +16,7 @@
 		C5181B6024E80C750022E36E /* TweetSentimentClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = C5181B5F24E80C750022E36E /* TweetSentimentClassifier.mlmodel */; };
 		C5181B6324E810310022E36E /* Swifter in Frameworks */ = {isa = PBXBuildFile; productRef = C5181B6224E810310022E36E /* Swifter */; };
 		C5181B6524E813CC0022E36E /* Secrets.plist in Resources */ = {isa = PBXBuildFile; fileRef = C5181B6424E813CC0022E36E /* Secrets.plist */; };
+		C5181B6824E85AF50022E36E /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = C5181B6724E85AF50022E36E /* SwiftyJSON */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5181B6824E85AF50022E36E /* SwiftyJSON in Frameworks */,
 				C5181B6324E810310022E36E /* Swifter in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -93,6 +95,7 @@
 			name = Twittermenti;
 			packageProductDependencies = (
 				C5181B6224E810310022E36E /* Swifter */,
+				C5181B6724E85AF50022E36E /* SwiftyJSON */,
 			);
 			productName = Twittermenti;
 			productReference = AD9EC64C20FE2EF4002AE9BF /* Twittermenti.app */;
@@ -124,6 +127,7 @@
 			mainGroup = AD9EC64320FE2EF4002AE9BF;
 			packageReferences = (
 				C5181B6124E810310022E36E /* XCRemoteSwiftPackageReference "Swifter" */,
+				C5181B6624E85AF50022E36E /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 			);
 			productRefGroup = AD9EC64D20FE2EF4002AE9BF /* Products */;
 			projectDirPath = "";
@@ -366,6 +370,14 @@
 				minimumVersion = 2.4.0;
 			};
 		};
+		C5181B6624E85AF50022E36E /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -373,6 +385,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = C5181B6124E810310022E36E /* XCRemoteSwiftPackageReference "Swifter" */;
 			productName = Swifter;
+		};
+		C5181B6724E85AF50022E36E /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C5181B6624E85AF50022E36E /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
