@@ -23,61 +23,60 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        let prediction = try! sentimentClassifier.prediction(text: "@Apple is a terrible company!")
-//        let prediction = try! sentimentClassifier.prediction(text: "@Apple is the best company!")
-//        print(prediction.label)
-        
-        swifter.searchTweet(using: "@Apple", lang: "en", count: 100, tweetMode: .extended, success: { (results, metadata) in
-//            print(results)
-            
-//            if let tweet = results[0]["full_text"].string {
-//                print(tweet)
-//            }
-            
-//            let tweets = results.array.map { (item) -> String in
-//                return item["full_text"].string
-//            }
-            
-            let tweets: [TweetSentimentClassifierInput] = results.array!
-                .map({ (item) -> String in
-                    return item["full_text"].string!
-                })
-                .map { (text) -> TweetSentimentClassifierInput in
-                    return TweetSentimentClassifierInput(text: text)
-                }
-            
-            do {
-                let predictions = try self.sentimentClassifier.predictions(inputs: tweets)
-//                print(predictions)
-                print(predictions[0].label)
-                
-                var sentimentScore = 0
-                
-                for pred in predictions {
-                    let sentiment = pred.label
-                    
-                    if sentiment == "Pos" {
-                        sentimentScore += 1
-                    } else if sentiment == "Neg" {
-                        sentimentScore -= 1
-                    }
-                }
-                
-                print(sentimentScore)
-                
-            } catch {
-                print("There was an error with making a prediction, \(error)")
-            }
-                        
-        }) { (error) in
-            print("There was an error with the Twitter API Request, \(error)")
-        }
     }
 
     @IBAction func predictPressed(_ sender: Any) {
     
-    
+        if let searchText = textField.text {
+            
+            swifter.searchTweet(using: searchText, lang: "en", count: 100, tweetMode: .extended, success: { (results, metadata) in
+                
+                let tweets: [TweetSentimentClassifierInput] = results.array!
+                    .map { (item) -> String in
+                        return item["full_text"].string!
+                    }
+                    .map { (text) -> TweetSentimentClassifierInput in
+                        return TweetSentimentClassifierInput(text: text)
+                    }
+                
+                do {
+                    let predictions = try self.sentimentClassifier.predictions(inputs: tweets)
+                    var sentimentScore = 0
+                    
+                    for pred in predictions {
+                        let sentiment = pred.label
+                        
+                        if sentiment == "Pos" {
+                            sentimentScore += 1
+                        } else if sentiment == "Neg" {
+                            sentimentScore -= 1
+                        }
+                    }
+                    print(sentimentScore)
+                    
+                    if sentimentScore > 20 {
+                        self.sentimentLabel.text = "😍"
+                    } else if sentimentScore > 10 {
+                        self.sentimentLabel.text = "😀"
+                    } else if sentimentScore > 0 {
+                        self.sentimentLabel.text = "🙂"
+                    } else if sentimentScore == 0 {
+                        self.sentimentLabel.text = "😐"
+                    } else if sentimentScore > -10 {
+                        self.sentimentLabel.text = "😕"
+                    } else if sentimentScore > -20 {
+                        self.sentimentLabel.text = "😡"
+                    } else {
+                        self.sentimentLabel.text = "🤮"
+                    }
+                
+                } catch {
+                    print("There was an error with making a prediction, \(error)")
+                }
+            }) { (error) in
+                print("There was an error with the Twitter API Request, \(error)")
+            }
+        }
     }
     
 }
