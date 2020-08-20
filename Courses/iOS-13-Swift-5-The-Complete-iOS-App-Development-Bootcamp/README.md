@@ -134,3 +134,7 @@ https://developer.twitter.com/en/docs/twitter-api/tools-and-libraries
 
 https://github.com/mattdonnelly/Swifter
 
+https://www.solarsystemscope.com/textures/
+
+https://www.turbosquid.com/
+
