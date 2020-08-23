@@ -138,3 +138,9 @@ https://www.solarsystemscope.com/textures/
 
 https://www.turbosquid.com/
 
+https://limitlesstcg.com/tools/proxies/
+
+https://free3d.com/3d-models/oddish
+
+https://developer.apple.com/augmented-reality/
+
