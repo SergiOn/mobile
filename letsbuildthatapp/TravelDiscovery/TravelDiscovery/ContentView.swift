@@ -11,13 +11,51 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    init() {
+        UINavigationBar.appearance().largeTitleTextAttributes = [
+            .foregroundColor: UIColor.white
+        ]
+    }
+
     var body: some View {
         NavigationView {
-            ScrollView {
-                DiscoverCategoriesView()
-                PopularDestinationsView()
-                PopularRestaurantsView()
-                TrendingCreatorsView()
+            
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9882131219, green: 0.6823856831, blue: 0.2509839535, alpha: 1)), Color(#colorLiteral(red: 0.996080339, green: 0.446325405, blue: 0.2697934847, alpha: 1))]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+
+                Color(.init(white: 0.9, alpha: 1))
+                    .offset(y: 400)
+
+                ScrollView {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        Text("Where do you want to go?")
+                        Spacer()
+                    }
+                    .font(.system(size: 14, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding()
+                    .background(Color(.init(white: 1, alpha: 0.3)))
+                    .cornerRadius(10)
+                    .padding(16)
+                    
+                    DiscoverCategoriesView()
+
+                    VStack {
+                        PopularDestinationsView()
+                        PopularRestaurantsView()
+                        TrendingCreatorsView()
+                    }
+                    .background(Color(.init(white: 0.9, alpha: 1)))
+                    .cornerRadius(16)
+                    .padding(.top, 32)
+                }
             }
             .navigationTitle("Discover")
         }
@@ -39,8 +77,8 @@ struct DiscoverCategoriesView: View {
         .init(name: "Art", imageName: "paintpalette.fill"),
         .init(name: "Sport", imageName: "sportscourt.fill"),
         .init(name: "Live Events", imageName: "music.mic"),
-        .init(name: "Food", imageName: "music.mic"),
-        .init(name: "History", imageName: "music.mic")
+        .init(name: "Food", imageName: "tray.fill"),
+        .init(name: "History", imageName: "books.vertical.fill")
     ]
     
     var body: some View {
@@ -49,14 +87,15 @@ struct DiscoverCategoriesView: View {
                 ForEach(categories, id: \.self) { category in
                     VStack(spacing: 8) {
                         Image(systemName: category.imageName)
-                            .foregroundColor(.white)
+                            .foregroundColor(Color(#colorLiteral(red: 1, green: 0.5059075952, blue: 0.2313886285, alpha: 1))
+                            )
                             .frame(width: 64, height: 64)
-                            .background(Color.gray)
+                            .background(Color.white)
                             .cornerRadius(.infinity)
-                            .shadow(color: .gray, radius: 4, x: 0, y: 2)
                         Text(category.name)
                             .font(.system(size: 12, weight: .semibold))
                             .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
                     }
                     .frame(width: 68)
                 }
@@ -73,13 +112,13 @@ struct Destination: Hashable {
 }
 
 struct PopularDestinationsView: View {
-    
+
     let destinations: [Destination] = [
         .init(name: "Paris", country: "France", imageName: "eiffel_tower"),
         .init(name: "Tokyo", country: "Japan", imageName: "japan"),
         .init(name: "New York", country: "US", imageName: "new_york")
     ]
-    
+
     var body: some View {
         VStack {
             HStack {
@@ -114,9 +153,12 @@ struct PopularDestinationsView: View {
                                 .padding(.bottom, 8)
                                 .foregroundColor(.gray)
                         }
-                        .background(Color(.init(white: 0.9, alpha: 1)))
+                        .background(Color.white)
                         .cornerRadius(5)
-                        .shadow(color: .gray, radius: 4, x: 0, y: 2)
+                        .shadow(
+                            color: .init(.sRGB, white: 0.8, opacity: 1),
+                            radius: 4, x: 0, y: 2
+                        )
                         .padding(.bottom)
                     }
                 }
@@ -187,9 +229,12 @@ struct PopularRestaurantsView: View {
                             Spacer()
                         }
                         .frame(width: 240)
-                        .background(Color(.init(white: 0.9, alpha: 1)))
+                        .background(Color.white)
                         .cornerRadius(5)
-                        .shadow(color: .gray, radius: 4, x: 0, y: 2)
+                        .shadow(
+                            color: .init(.sRGB, white: 0.8, opacity: 1),
+                            radius: 4, x: 0, y: 2
+                        )
                         .padding(.bottom)
                     }
                 }
