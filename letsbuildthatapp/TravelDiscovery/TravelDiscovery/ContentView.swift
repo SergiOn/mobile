@@ -39,8 +39,8 @@ struct DiscoverCategoriesView: View {
         .init(name: "Art", imageName: "paintpalette.fill"),
         .init(name: "Sport", imageName: "sportscourt.fill"),
         .init(name: "Live Events", imageName: "music.mic"),
-        .init(name: "Food", imageName: "palette"),
-        .init(name: "History", imageName: "palette")
+        .init(name: "Food", imageName: "music.mic"),
+        .init(name: "History", imageName: "music.mic")
     ]
     
     var body: some View {
@@ -48,7 +48,6 @@ struct DiscoverCategoriesView: View {
             HStack(alignment: .top, spacing: 14) {
                 ForEach(categories, id: \.self) { category in
                     VStack(spacing: 8) {
-//                        Spacer()
                         Image(systemName: category.imageName)
                             .foregroundColor(.white)
                             .frame(width: 64, height: 64)
@@ -96,13 +95,11 @@ struct PopularDestinationsView: View {
             ScrollView(.horizontal) {
                 HStack(spacing: 8) {
                     ForEach(destinations, id: \.self) { destination in
-//                        Spacer()
                         VStack(alignment: .leading, spacing: 0) {
                             Image(destination.imageName)
                                 .resizable()
                                 .scaledToFill()
                                 .frame(width: 125, height: 125)
-//                                .clipped()
                                 .cornerRadius(4)
                                 .padding(.horizontal, 6)
                                 .padding(.vertical, 6)
@@ -117,7 +114,6 @@ struct PopularDestinationsView: View {
                                 .padding(.bottom, 8)
                                 .foregroundColor(.gray)
                         }
-//                        .frame(width: 125)
                         .background(Color(.init(white: 0.9, alpha: 1)))
                         .cornerRadius(5)
                         .shadow(color: .gray, radius: 4, x: 0, y: 2)
@@ -130,7 +126,18 @@ struct PopularDestinationsView: View {
     }
 }
 
+struct Restaurant: Hashable {
+    let name: String
+    let imageName: String
+}
+
 struct PopularRestaurantsView: View {
+
+    let restaurants: [Restaurant] = [
+        .init(name: "Japan's Finest Tapas", imageName: "tapas"),
+        .init(name: "Bar & Grill", imageName: "bar_grill"),
+    ]
+
     var body: some View {
         VStack {
             HStack {
@@ -145,13 +152,45 @@ struct PopularRestaurantsView: View {
 
             ScrollView(.horizontal) {
                 HStack(spacing: 8) {
-                    ForEach(0..<5, id: \.self) { num in
-                        Spacer()
-                            .frame(width: 200, height: 64)
-                            .background(Color.gray)
-                            .cornerRadius(5)
-                            .shadow(color: .gray, radius: 4, x: 0, y: 2)
-                            .padding(.bottom)
+                    ForEach(restaurants, id: \.self) { restaurant in
+                        HStack(spacing: 8) {
+                            Image(restaurant.imageName)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 60, height: 60)
+                                .clipped()
+                                .cornerRadius(5)
+                                .padding(.leading, 6)
+                                .padding(.vertical, 6)
+
+                            VStack(alignment: .leading, spacing: 6) {
+                                HStack() {
+                                    Text(restaurant.name)
+                                        .font(.system(size: 12, weight: .semibold))
+                                    Spacer()
+                                    Button(action: {}, label: {
+                                        Image(systemName: "ellipsis")
+                                            .foregroundColor(.gray)
+                                    })
+                                }
+
+                                HStack {
+                                    Image(systemName: "star.fill")
+                                    Text("4.7 • Syshi • $$")
+                                }
+
+                                Text("Tokyo, Japan")
+                                    .font(.system(size: 12, weight: .semibold))
+                            }
+                            .font(.system(size: 12, weight: .semibold))
+
+                            Spacer()
+                        }
+                        .frame(width: 240)
+                        .background(Color(.init(white: 0.9, alpha: 1)))
+                        .cornerRadius(5)
+                        .shadow(color: .gray, radius: 4, x: 0, y: 2)
+                        .padding(.bottom)
                     }
                 }
                 .padding(.horizontal)
@@ -160,7 +199,19 @@ struct PopularRestaurantsView: View {
     }
 }
 
+struct User: Hashable {
+    let name: String
+    let imageName: String
+}
+
 struct TrendingCreatorsView: View {
+    
+    var users: [User] = [
+        .init(name: "Amy Adams", imageName: "amy"),
+        .init(name: "Billy", imageName: "billy"),
+        .init(name: "Sam Smith", imageName: "sam"),
+    ]
+
     var body: some View {
         VStack {
             HStack {
@@ -174,14 +225,22 @@ struct TrendingCreatorsView: View {
             .padding(.horizontal)
 
             ScrollView(.horizontal) {
-                HStack(spacing: 8) {
-                    ForEach(0..<15, id: \.self) { num in
-                        Spacer()
-                            .frame(width: 50, height: 50)
-                            .background(Color.gray)
-                            .cornerRadius(.infinity)
-                            .shadow(color: .gray, radius: 4, x: 0, y: 2)
-                            .padding(.bottom)
+                HStack(alignment: .top, spacing: 12) {
+                    ForEach(users, id: \.self) { user in
+                        VStack {
+                            Image(user.imageName)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 60, height: 60)
+                                .cornerRadius(.infinity)
+                            
+                            Text(user.name)
+                                .font(.system(size: 11, weight: .semibold))
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(width: 60)
+                        .shadow(color: .gray, radius: 4, x: 0, y: 2)
+                        .padding(.bottom)
                     }
                 }
                 .padding(.horizontal)
