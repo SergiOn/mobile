@@ -5,6 +5,9 @@
 //  Created by Serhii Onyshchenko on 14.01.2024.
 //
 
+// NavigationView is deprecated, migration guide
+// https://developer.apple.com/documentation/swiftui/migrating-to-new-navigation-types
+
 import SwiftUI
 
 struct DiscoverCategoriesView: View {
@@ -21,23 +24,66 @@ struct DiscoverCategoriesView: View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 14) {
                 ForEach(categories, id: \.self) { category in
-                    VStack(spacing: 8) {
-                        Image(systemName: category.imageName)
-                            .foregroundColor(Color(#colorLiteral(red: 1, green: 0.5059075952, blue: 0.2313886285, alpha: 1))
-                            )
-                            .frame(width: 64, height: 64)
-                            .background(Color.white)
-                            .cornerRadius(.infinity)
-                        Text(category.name)
-                            .font(.system(size: 12, weight: .semibold))
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.white)
-                    }
-                    .frame(width: 68)
+                    NavigationLink(
+                        destination: CategoryDetailsView(),
+                        label: {
+                            VStack(spacing: 8) {
+                                Image(systemName: category.imageName)
+                                    .foregroundColor(Color(#colorLiteral(red: 1, green: 0.5059075952, blue: 0.2313886285, alpha: 1))
+                                    )
+                                    .frame(width: 64, height: 64)
+                                    .background(Color.white)
+                                    .cornerRadius(.infinity)
+                                Text(category.name)
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .multilineTextAlignment(.center)
+                                    .foregroundColor(.white)
+                            }
+                            .frame(width: 68)
+                        })
                 }
             }
             .padding(.horizontal)
         }
+    }
+}
+
+struct CategoryDetailsView: View {
+    var body: some View {
+        ScrollView {
+            ForEach(0..<5, id: \.self) { num in
+                VStack(alignment: .leading, spacing: 0) {
+                    Image("art1")
+                        .resizable()
+                        .scaledToFill()
+
+                    Text("Demo")
+                        .font(.system(size: 12, weight: .semibold))
+                        .padding()
+                }
+                .asTile()
+                .padding()
+            }
+        }
+//        .navigationBarTitle("Category", displayMode: .inline)
+        .navigationTitle("Category")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+#Preview {
+    NavigationView {
+        CategoryDetailsView()
+    }
+}
+
+#Preview {
+    NavigationView {
+        NavigationLink(
+            destination: Text("Transition Screen"),
+            label: {
+                Text("Link")
+            })
     }
 }
 
