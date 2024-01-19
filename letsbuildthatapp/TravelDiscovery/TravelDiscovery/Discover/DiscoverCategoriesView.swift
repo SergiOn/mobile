@@ -48,24 +48,74 @@ struct DiscoverCategoriesView: View {
     }
 }
 
-struct CategoryDetailsView: View {
-    var body: some View {
-        ScrollView {
-            ForEach(0..<5, id: \.self) { num in
-                VStack(alignment: .leading, spacing: 0) {
-                    Image("art1")
-                        .resizable()
-                        .scaledToFill()
+class CategoryDetailsViewModel: ObservableObject {
+    
+    @Published var isLoading = true
+    @Published var places = [Int]()
+    
+    init() {
+        // network code will happen here
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.isLoading = false
+            self.places = [1, 2, 3, 4, 5, 6, 7]
+        }
+    }
+    
+}
 
-                    Text("Demo")
-                        .font(.system(size: 12, weight: .semibold))
-                        .padding()
+struct ActivityIndicatorView: UIViewRepresentable {
+    typealias UIViewType = UIActivityIndicatorView
+
+    func makeUIView(context: Context) -> UIActivityIndicatorView {
+        let aiv = UIActivityIndicatorView(style: .large)
+        aiv.startAnimating()
+        aiv.color = .white
+        return aiv
+    }
+    
+    func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
+    }
+    
+    
+}
+
+struct CategoryDetailsView: View {
+    
+    @ObservedObject var vm = CategoryDetailsViewModel()
+
+//    @State var isLoading = true
+//    @State var isLoading = false
+
+    var body: some View {
+        ZStack {
+            if vm.isLoading {
+                VStack {
+                    ActivityIndicatorView()
+                    Text("Loading...")
+                        .foregroundColor(.white)
+                        .font(.system(size: 16, weight: .semibold))
                 }
-                .asTile()
                 .padding()
+                .background(Color.black)
+                .cornerRadius(8)
+            } else {
+                ScrollView {
+                    ForEach(vm.places, id: \.self) { num in
+                        VStack(alignment: .leading, spacing: 0) {
+                            Image("art1")
+                                .resizable()
+                                .scaledToFill()
+
+                            Text("Demo")
+                                .font(.system(size: 12, weight: .semibold))
+                                .padding()
+                        }
+                        .asTile()
+                        .padding()
+                    }
+                }
             }
         }
-//        .navigationBarTitle("Category", displayMode: .inline)
         .navigationTitle("Category")
         .navigationBarTitleDisplayMode(.inline)
     }
