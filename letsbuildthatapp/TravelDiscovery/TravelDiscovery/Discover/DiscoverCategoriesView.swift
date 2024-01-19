@@ -48,21 +48,6 @@ struct DiscoverCategoriesView: View {
     }
 }
 
-class CategoryDetailsViewModel: ObservableObject {
-    
-    @Published var isLoading = true
-    @Published var places = [Int]()
-    
-    init() {
-        // network code will happen here
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.isLoading = false
-            self.places = [1, 2, 3, 4, 5, 6, 7]
-        }
-    }
-    
-}
-
 struct ActivityIndicatorView: UIViewRepresentable {
     typealias UIViewType = UIActivityIndicatorView
 
@@ -75,16 +60,65 @@ struct ActivityIndicatorView: UIViewRepresentable {
     
     func updateUIView(_ uiView: UIActivityIndicatorView, context: Context) {
     }
+}
+
+struct Place: Decodable, Hashable {
+    let id: Int64
+//    let id: String
+    let name: String
+    let thumbnail: String
+
+    /*
+     id": 4,
+     "name": "Art Academy",
+     "country": "Japan",
+     "description": "",
+     "thumbnail": "https://letsbuildthatapp-videos.s3.us-west-2.amazonaws.com/42eb62ad-8f4a-4fdd-8ed2-3a7614a2f9e2",
+     "photos": [
+       
+     ]
+     */
+}
+
+class CategoryDetailsViewModel: ObservableObject {
     
+    @Published var isLoading = true
+    @Published var places = [Place]()
+    @Published var errorMassage = ""
+    
+    init() {
+        // network code will happen here
+        // real network code
+        
+        guard let url = URL(string: "https://travel.letsbuildthatapp.com/travel_discovery/category?name=art")
+        else {
+            return
+        }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            // you want to check response statusCode and error
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                guard let data = data else { return }
+                
+                do {
+                    self.places = try JSONDecoder().decode([Place].self, from: data)
+                } catch {
+                    print("Failed to decode JSON:", error)
+                    self.errorMassage = error.localizedDescription
+                }
+
+                self.isLoading = false
+            }
+        }
+        // make sure to have resume
+        .resume()
+    }
     
 }
 
 struct CategoryDetailsView: View {
     
     @ObservedObject var vm = CategoryDetailsViewModel()
-
-//    @State var isLoading = true
-//    @State var isLoading = false
 
     var body: some View {
         ZStack {
@@ -99,19 +133,22 @@ struct CategoryDetailsView: View {
                 .background(Color.black)
                 .cornerRadius(8)
             } else {
-                ScrollView {
-                    ForEach(vm.places, id: \.self) { num in
-                        VStack(alignment: .leading, spacing: 0) {
-                            Image("art1")
-                                .resizable()
-                                .scaledToFill()
+                ZStack {
+                    Text(vm.errorMassage)
+                    ScrollView {
+                        ForEach(vm.places, id: \.self) { place in
+                            VStack(alignment: .leading, spacing: 0) {
+                                Image("art1")
+                                    .resizable()
+                                    .scaledToFill()
 
-                            Text("Demo")
-                                .font(.system(size: 12, weight: .semibold))
-                                .padding()
+                                Text(place.name)
+                                    .font(.system(size: 12, weight: .semibold))
+                                    .padding()
+                            }
+                            .asTile()
+                            .padding()
                         }
-                        .asTile()
-                        .padding()
                     }
                 }
             }
