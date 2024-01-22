@@ -17,25 +17,35 @@ import Kingfisher
 import SDWebImageSwiftUI
 
 class CategoryDetailsViewModel: ObservableObject {
-    
+
     @Published var isLoading = true
     @Published var places = [Place]()
     @Published var errorMassage = ""
-    
-    init() {
+
+    init(name: String) {
         // network code will happen here
         // real network code
-        
-        guard let url = URL(string: "https://travel.letsbuildthatapp.com/travel_discovery/category?name=art")
-        else {
+
+//        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(name.lowercased())"
+//        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(name)"
+        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(name)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+
+        guard let url = URL(string: urlString) else {
+            self.isLoading = false
             return
         }
-        
+
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             // you want to check response statusCode and error
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            if let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 400 {
+                self.isLoading = false
+                self.errorMassage = "Bad status: \(statusCode)"
+                return
+            }
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 guard let data = data else { return }
-                
+
                 do {
                     self.places = try JSONDecoder().decode([Place].self, from: data)
                 } catch {
@@ -49,12 +59,22 @@ class CategoryDetailsViewModel: ObservableObject {
         // make sure to have resume
         .resume()
     }
-    
 }
 
 struct CategoryDetailsView: View {
     
-    @ObservedObject var vm = CategoryDetailsViewModel()
+//    let name: String
+//    @ObservedObject var vm = CategoryDetailsViewModel()
+
+    private let name: String
+    @ObservedObject private var vm: CategoryDetailsViewModel
+
+    init(name: String) {
+        self.name = name
+//        self.vm = CategoryDetailsViewModel(name: name)
+//        self.vm = CategoryDetailsViewModel(name: name.lowercased())
+        self.vm = .init(name: name.lowercased())
+    }
 
     var body: some View {
         ZStack {
@@ -71,7 +91,15 @@ struct CategoryDetailsView: View {
                 .cornerRadius(8)
             } else {
                 ZStack {
-                    Text(vm.errorMassage)
+                    if !vm.errorMassage.isEmpty {
+                        VStack(spacing: 12) {
+                            Image(systemName: "xmark.octagon.fill")
+                                .font(.system(size: 64, weight: .semibold))
+                                .foregroundColor(.red)
+                            Text(vm.errorMassage)
+                        }
+                    }
+
                     ScrollView {
                         ForEach(vm.places, id: \.self) { place in
                             VStack(alignment: .leading, spacing: 0) {
@@ -121,14 +149,15 @@ struct CategoryDetailsView: View {
                 }
             }
         }
-        .navigationTitle("Category")
+        .navigationTitle(name)
         .navigationBarTitleDisplayMode(.inline)
     }
 }
 
 #Preview {
     NavigationView {
-        CategoryDetailsView()
+        CategoryDetailsView(name: "Art")
+//        CategoryDetailsView(name: "Food")
     }
 }
 
