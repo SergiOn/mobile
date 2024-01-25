@@ -5,8 +5,9 @@
 //  Created by Serhii Onyshchenko on 09.01.2024.
 //
 
-// NavigationView is deprecated
+// NavigationView is deprecated, migration guide
 // https://developer.apple.com/documentation/swiftui/navigationview
+// https://developer.apple.com/documentation/swiftui/migrating-to-new-navigation-types
 
 import SwiftUI
 
@@ -24,7 +25,8 @@ struct DiscoverView: View {
 
     var body: some View {
         NavigationView {
-            
+//        NavigationStack {
+
             ZStack {
                 LinearGradient(
                     gradient: Gradient(colors: [Color(#colorLiteral(red: 0.9882131219, green: 0.6823856831, blue: 0.2509839535, alpha: 1)), Color(#colorLiteral(red: 0.996080339, green: 0.446325405, blue: 0.2697934847, alpha: 1))]),

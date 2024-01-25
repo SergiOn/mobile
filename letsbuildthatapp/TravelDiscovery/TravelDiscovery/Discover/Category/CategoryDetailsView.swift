@@ -70,6 +70,7 @@ struct CategoryDetailsView: View {
     @ObservedObject private var vm: CategoryDetailsViewModel
 
     init(name: String) {
+        print("Loaded CategoryDetails View and making a network request for \(name)")
         self.name = name
 //        self.vm = CategoryDetailsViewModel(name: name)
 //        self.vm = CategoryDetailsViewModel(name: name.lowercased())
