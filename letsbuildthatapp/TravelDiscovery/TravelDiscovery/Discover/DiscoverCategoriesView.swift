@@ -26,7 +26,7 @@ struct NavigationLazyView<Content: View>: View {
 }
 
 struct DiscoverCategoriesView: View {
-    
+
     let categories: [Category] = [
         .init(name: "Art", imageName: "paintpalette.fill"),
         .init(name: "Sports", imageName: "sportscourt.fill"),
@@ -34,7 +34,7 @@ struct DiscoverCategoriesView: View {
         .init(name: "Food", imageName: "tray.fill"),
         .init(name: "History", imageName: "books.vertical.fill")
     ]
-    
+
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(alignment: .top, spacing: 14) {
@@ -91,9 +91,11 @@ struct DiscoverCategoriesView: View {
 }
 
 #Preview {
-    ZStack {
-        Color.orange
-        DiscoverCategoriesView()
+    NavigationView {
+        ZStack {
+            Color.orange
+            DiscoverCategoriesView()
+        }
     }
 }
 
