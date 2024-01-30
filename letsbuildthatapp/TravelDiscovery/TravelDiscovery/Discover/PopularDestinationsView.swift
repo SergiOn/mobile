@@ -84,61 +84,26 @@ struct PopularDestinationDetailsView: View {
     var body: some View {
         ScrollView {
             TabView {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Text("First")
-                        Spacer()
-                    }
-                    Spacer()
-                }
-//                .frame(height: 250)
-                .foregroundColor(.white)
-                .background(.red)
-                
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Text("Second")
-                        Spacer()
-                    }
-                    Spacer()
-                }
-                .foregroundColor(.white)
-                .background(.green)
-                
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Text("Third")
-                        Spacer()
-                    }
-                    Spacer()
-                }
-                .foregroundColor(.white)
-                .background(.blue)
-                
-//                Image(destination.imageName)
-//                    .resizable()
-//                    .scaledToFill()
-//                    .clipped()
-//                
-//                Image("new_york")
-//                    .resizable()
-//                    .scaledToFill()
-//                    .clipped()
-//                
-//                Image("japan")
-//                    .resizable()
-//                    .scaledToFill()
-//                    .clipped()
+                Image(destination.imageName)
+                    .resizable()
+                    .scaledToFill()
+                    .clipped()
+
+                Image("new_york")
+//                Image("art1")
+                    .resizable()
+                    .scaledToFill()
+                    .clipped()
+
+                Image("japan")
+//                Image("art2")
+                    .resizable()
+                    .scaledToFill()
+                    .clipped()
             }
 //            .tabViewStyle(PageTabViewStyle())
-            .tabViewStyle(.page)
-//            .tabViewStyle(.page(indexDisplayMode: .always))
+//            .tabViewStyle(.page)
+            .tabViewStyle(.page(indexDisplayMode: .always))
 //            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
 //            .indexViewStyle(.page(backgroundDisplayMode: .always))
 //            .accentColor(.red)
@@ -147,7 +112,6 @@ struct PopularDestinationDetailsView: View {
 //            .toolbarBackground(.visible, for: .tabBar)
 //            .toolbarColorScheme(.light, for: .tabBar)
             .frame(height: 250)
-            
 
             VStack(alignment: .leading) {
                 Text(destination.name)
