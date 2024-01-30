@@ -11,6 +11,7 @@ import CoreLocation
 struct Attraction: Identifiable {
     let id = UUID().uuidString
     let name: String
+    let imageName: String
     let latitude: CLLocationDegrees
     let longitude: CLLocationDegrees
 }
