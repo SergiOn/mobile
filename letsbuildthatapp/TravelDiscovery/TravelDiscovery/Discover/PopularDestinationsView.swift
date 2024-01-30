@@ -5,6 +5,9 @@
 //  Created by Serhii Onyshchenko on 14.01.2024.
 //
 
+// Map
+// https://stackoverflow.com/questions/76865201/mapcoordinateregion-showsuserlocation-deprecated-in-ios-17-0
+
 import SwiftUI
 import MapKit
 
@@ -46,9 +49,17 @@ struct PopularDestinationsView: View {
 }
 
 struct PopularDestinationDetailsView: View {
+    
+    let attractions: [Attraction] = [
+        .init(name: "Eiffel Tower", latitude: 48.858605, longitude: 2.2946),
+        .init(name: "Champs-Elysees", latitude: 48.866867, longitude: 2.311780),
+        .init(name: "Louvre Museum", latitude: 48.860288, longitude: 2.337789)
+    ]
 
     let destination: Destination
     @State var region: MKCoordinateRegion
+//    @State var position: MapCameraPosition
+    @State var isShowingAttractions: Bool = false
 
     init(destination: Destination) {
         self.destination = destination
@@ -56,6 +67,14 @@ struct PopularDestinationDetailsView: View {
             center: .init(latitude: destination.latitude, longitude: destination.longitude),
             span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)
         )
+//        self._region = State(initialValue: MKCoordinateRegion(
+//            center: .init(latitude: destination.latitude, longitude: destination.longitude),
+//            span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)
+//        ))
+//        self._position = State(initialValue: MapCameraPosition.region(MKCoordinateRegion(
+//            center: .init(latitude: destination.latitude, longitude: destination.longitude),
+//            span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)
+//        )))
     }
 
     var body: some View {
@@ -78,7 +97,7 @@ struct PopularDestinationDetailsView: View {
                 }
                 .padding(.top, 2)
 
-                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                Text("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
                 )
                 .padding(.top, 8)
                 .font(.system(size: 14))
@@ -88,16 +107,43 @@ struct PopularDestinationDetailsView: View {
                 }
             }
             .padding(.horizontal)
-            
+
             HStack {
                 Text("Location")
                     .font(.system(size: 18, weight: .semibold))
                 Spacer()
+                Button {
+                    isShowingAttractions.toggle()
+                } label: {
+                    Text("\(isShowingAttractions ? "Hide" : "Show") Attractions")
+                        .font(.system(size: 12, weight: .semibold))
+                }
+                Toggle("", isOn: $isShowingAttractions)
+                    .labelsHidden()
             }
             .padding(.horizontal)
 
-            Map(coordinateRegion: $region)
-                .frame(height: 200)
+//            Map(coordinateRegion: $region)
+//                .frame(height: 300)
+            Map(
+                coordinateRegion: $region,
+                annotationItems: isShowingAttractions ? attractions : [],
+                annotationContent: { attraction in
+                    MapMarker(
+                        coordinate: .init(
+                            latitude: attraction.latitude,
+                            longitude: attraction.longitude
+                        ),
+                        tint: .red
+                    )
+                }
+            )
+            .frame(height: 300)
+
+//            Map(position: $position) {
+//                UserAnnotation()
+//            }
+//            .frame(height: 300)
         }
         .navigationTitle(destination.name)
         .navigationBarTitleDisplayMode(.inline)
