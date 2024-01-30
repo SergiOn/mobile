@@ -76,15 +76,47 @@ struct PopularDestinationDetailsView: View {
 //            center: .init(latitude: destination.latitude, longitude: destination.longitude),
 //            span: .init(latitudeDelta: 0.1, longitudeDelta: 0.1)
 //        )))
+        
+//        UIPageControl.appearance().currentPageIndicatorTintColor = .red
+//        UIPageControl.appearance().pageIndicatorTintColor = UIColor.red.withAlphaComponent(0.3)
     }
 
     var body: some View {
         ScrollView {
-            Image(destination.imageName)
-                .resizable()
-                .scaledToFill()
-                .frame(height: 200)
-                .clipped()
+            TabView {
+                HStack {
+                    Spacer()
+                }
+                .frame(height: 250)
+                .background(.red)
+                
+//                Image(destination.imageName)
+//                    .resizable()
+//                    .scaledToFill()
+//                    .clipped()
+//                
+//                Image("new_york")
+//                    .resizable()
+//                    .scaledToFill()
+//                    .clipped()
+//                
+//                Image("japan")
+//                    .resizable()
+//                    .scaledToFill()
+//                    .clipped()
+            }
+//            .tabViewStyle(PageTabViewStyle())
+//            .tabViewStyle(.page)
+//            .tabViewStyle(.page(indexDisplayMode: .always))
+//            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
+//            .indexViewStyle(.page(backgroundDisplayMode: .always))
+//            .accentColor(.red)
+//            .tint(Color.red)
+//            .toolbarBackground(.red, for: .tabBar)
+//            .toolbarBackground(.visible, for: .tabBar)
+//            .toolbarColorScheme(.light, for: .tabBar)
+            .frame(height: 250)
+            
 
             VStack(alignment: .leading) {
                 Text(destination.name)
