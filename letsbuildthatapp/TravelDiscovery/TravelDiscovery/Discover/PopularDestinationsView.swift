@@ -84,11 +84,42 @@ struct PopularDestinationDetailsView: View {
     var body: some View {
         ScrollView {
             TabView {
-                HStack {
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Text("First")
+                        Spacer()
+                    }
                     Spacer()
                 }
-                .frame(height: 250)
+//                .frame(height: 250)
+                .foregroundColor(.white)
                 .background(.red)
+                
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Text("Second")
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                .foregroundColor(.white)
+                .background(.green)
+                
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Text("Third")
+                        Spacer()
+                    }
+                    Spacer()
+                }
+                .foregroundColor(.white)
+                .background(.blue)
                 
 //                Image(destination.imageName)
 //                    .resizable()
@@ -106,7 +137,7 @@ struct PopularDestinationDetailsView: View {
 //                    .clipped()
             }
 //            .tabViewStyle(PageTabViewStyle())
-//            .tabViewStyle(.page)
+            .tabViewStyle(.page)
 //            .tabViewStyle(.page(indexDisplayMode: .always))
 //            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
 //            .indexViewStyle(.page(backgroundDisplayMode: .always))
