@@ -5,11 +5,19 @@
 //  Created by Serhii Onyshchenko on 14.01.2024.
 //
 
+// api
+// https://travel.letsbuildthatapp.com/travel_discovery/destination?name=paris
+
 // Map
 // https://stackoverflow.com/questions/76865201/mapcoordinateregion-showsuserlocation-deprecated-in-ios-17-0
 
+// TabView
+// https://www.youtube.com/watch?v=5E_D9D8Z5nQ&t=945s
+// https://www.youtube.com/watch?v=DLj9yM-zLyc&t=1355s
+
 import SwiftUI
 import MapKit
+import Kingfisher
 
 struct PopularDestinationsView: View {
 
@@ -56,11 +64,19 @@ struct PopularDestinationDetailsView: View {
         .init(name: "Louvre Museum", imageName: "art2", latitude: 48.860288, longitude: 2.337789)
     ]
 
+    let photos: [String] = [
+        "https://letsbuildthatapp-videos.s3.us-west-2.amazonaws.com/7156c3c6-945e-4284-a796-915afdc158b5",
+        "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/b1642068-5624-41cf-83f1-3f6dff8c1702",
+        "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/6982cc9d-3104-4a54-98d7-45ee5d117531",
+        "https://letsbuildthatapp-videos.s3-us-west-2.amazonaws.com/2240d474-2237-4cd3-9919-562cd1bb439e"
+    ]
+
     let destination: Destination
     @State var region: MKCoordinateRegion
 //    @State var position: MapCameraPosition
 //    @State var isShowingAttractions: Bool = false
     @State var isShowingAttractions: Bool = true
+    @State var selectedPhoto: Int = 0
 
     init(destination: Destination) {
         self.destination = destination
@@ -83,27 +99,20 @@ struct PopularDestinationDetailsView: View {
 
     var body: some View {
         ScrollView {
-            TabView {
-                Image(destination.imageName)
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
-
-                Image("new_york")
-//                Image("art1")
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
-
-                Image("japan")
-//                Image("art2")
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
+            TabView(selection: $selectedPhoto) {
+                ForEach(Array(photos.enumerated()), id: \.offset) { index, photoUrl in
+                    let _ = print(index, photoUrl)
+                    KFImage(URL(string: photoUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                        .tag(index)
+                }
             }
 //            .tabViewStyle(PageTabViewStyle())
 //            .tabViewStyle(.page)
-            .tabViewStyle(.page(indexDisplayMode: .always))
+//            .tabViewStyle(.page(indexDisplayMode: .always))
+            .tabViewStyle(.page(indexDisplayMode: .never))
 //            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
 //            .indexViewStyle(.page(backgroundDisplayMode: .always))
 //            .accentColor(.red)
@@ -112,6 +121,23 @@ struct PopularDestinationDetailsView: View {
 //            .toolbarBackground(.visible, for: .tabBar)
 //            .toolbarColorScheme(.light, for: .tabBar)
             .frame(height: 250)
+
+            HStack(spacing: 10) {
+                ForEach(0..<photos.count, id: \.self) { index in
+                    let isActive = index == selectedPhoto
+                    
+                    Button {
+                        withAnimation {
+                            selectedPhoto = index
+                        }
+                    } label: {
+                        Circle()
+                            .frame(width: 8)
+                            .foregroundColor(isActive ? .red : .black)
+                            .opacity(isActive ? 1 : 0.25)
+                    }
+                }
+            }
 
             VStack(alignment: .leading) {
                 Text(destination.name)
