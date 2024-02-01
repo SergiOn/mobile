@@ -28,7 +28,8 @@ class CategoryDetailsViewModel: ObservableObject {
 
 //        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(name.lowercased())"
 //        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(name)"
-        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(name)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
+        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/category?name=\(name)"
+            .addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? ""
 
         guard let url = URL(string: urlString) else {
             self.isLoading = false
@@ -43,7 +44,8 @@ class CategoryDetailsViewModel: ObservableObject {
                 return
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            DispatchQueue.main.async {
                 guard let data = data else { return }
 
                 do {
