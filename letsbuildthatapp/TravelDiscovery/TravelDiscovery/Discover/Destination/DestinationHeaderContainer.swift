@@ -7,6 +7,8 @@
 
 // api
 // https://travel.letsbuildthatapp.com/travel_discovery/destination?name=paris
+// https://travel.letsbuildthatapp.com/travel_discovery/destination?name=tokyo
+// https://travel.letsbuildthatapp.com/travel_discovery/destination?name=new%20york
 
 import SwiftUI
 import Kingfisher

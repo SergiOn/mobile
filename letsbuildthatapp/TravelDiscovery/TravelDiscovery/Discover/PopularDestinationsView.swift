@@ -7,6 +7,8 @@
 
 // api
 // https://travel.letsbuildthatapp.com/travel_discovery/destination?name=paris
+// https://travel.letsbuildthatapp.com/travel_discovery/destination?name=tokyo
+// https://travel.letsbuildthatapp.com/travel_discovery/destination?name=new%20york
 
 // Map
 // https://stackoverflow.com/questions/76865201/mapcoordinateregion-showsuserlocation-deprecated-in-ios-17-0
@@ -98,8 +100,8 @@ struct PopularDestinationDetailsView: View {
     let destination: Destination
     @State var region: MKCoordinateRegion
 //    @State var position: MapCameraPosition
-    @State var isShowingAttractions: Bool = false
-//    @State var isShowingAttractions: Bool = true
+//    @State var isShowingAttractions: Bool = false
+    @State var isShowingAttractions: Bool = true
 
     init(destination: Destination) {
         self.vm = .init(name: destination.name.lowercased())
@@ -137,12 +139,11 @@ struct PopularDestinationDetailsView: View {
                     }
                 }
                 .padding(.top, 2)
-
-                Text(vm.destinationDetails?.description ?? "")
-                    .padding(.top, 8)
-                    .font(.system(size: 14))
-
+                
                 HStack {
+                    Text(vm.destinationDetails?.description ?? "")
+                        .padding(.top, 8)
+                        .font(.system(size: 14))
                     Spacer()
                 }
             }
