@@ -8,12 +8,31 @@
 // api
 // https://travel.letsbuildthatapp.com/travel_discovery/restaurant?id=0
 
+// Equatable, Hashable, and Comparable
+// https://medium.com/nerd-for-tech/equatable-hashable-and-comparable-d782449f6ce8
+
 import SwiftUI
 import Kingfisher
 
 struct RestaurantDetails: Decodable {
     let description: String
     let popularDishes: [Dish]
+    let photos: [String]
+    let reviews: [Review]
+}
+
+struct Review: Decodable, Hashable {
+    let user: ReviewUser
+    let rating: Int
+    let text: String
+}
+
+struct ReviewUser: Decodable, Hashable {
+    let id: Int64
+    let username: String
+    let firstName: String
+    let lastName: String
+    let profileImage: String
 }
 
 //struct Dishe: Decodable, Hashable {
@@ -48,11 +67,6 @@ class RestaurantDetailsViewModel: ObservableObject {
 
 struct RestaurantDetailsView: View {
 
-    let sampleDishPhotos = [
-        "https://letsbuildthatapp-videos.s3.us-west-2.amazonaws.com/0d1d2e79-2f10-4cfd-82da-a1c2ab3638d2",
-        "https://letsbuildthatapp-videos.s3.us-west-2.amazonaws.com/3a352f87-3dc1-4fa7-affe-fb12fa8691fe"
-    ]
-
     @ObservedObject var vm: RestaurantDetailsViewModel
     let restaurant: Restaurant
 
@@ -62,7 +76,6 @@ struct RestaurantDetailsView: View {
     }
 
     var body: some View {
-//        Text(vm.details?.description ?? "")
         ScrollView {
             ZStack(alignment: .bottomLeading) {
                 Image(restaurant.imageName)
@@ -131,9 +144,65 @@ struct RestaurantDetailsView: View {
                 }
                 .padding(.horizontal)
             }
+            
+            if let reviews = vm.details?.reviews {
+                ReviewList(reviews: reviews)
+            }
         }
         .navigationTitle("Restaurant Details")
         .navigationBarTitleDisplayMode(.inline)
+    }
+}
+
+struct ReviewList: View {
+
+    let reviews: [Review]
+
+    var body: some View {
+        HStack {
+            Text("Customer Reviews")
+                .font(.system(size: 16, weight: .bold))
+            Spacer()
+        }
+        .padding(.horizontal)
+        .padding(.top)
+
+        ForEach(reviews, id: \.self) { review in
+            VStack(alignment: .leading) {
+                HStack {
+                    KFImage(URL(string: review.user.profileImage))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 44)
+                        .clipShape(Circle())
+
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("\(review.user.firstName) \(review.user.lastName)")
+                            .font(.system(size: 14, weight: .bold))
+                        
+                        HStack(spacing: 4) {
+                            ForEach(0..<review.rating, id: \.self) { num in
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.orange)
+                                    .font(.system(size: 12))
+                            }
+                            ForEach(review.rating..<5, id: \.self) { num in
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.gray)
+                                    .font(.system(size: 12))
+                            }
+                        }
+                    }
+                    Spacer()
+                    Text("Dec 2020")
+                        .font(.system(size: 14, weight: .regular))
+                }
+                Text(review.text)
+                    .font(.system(size: 14, weight: .regular))
+            }
+            .padding(.top, 4)
+            .padding(.horizontal)
+        }
     }
 }
 
@@ -143,13 +212,10 @@ struct DishCell: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-//            Image("tapas")
             ZStack(alignment: .bottomLeading) {
                 KFImage(URL(string: dish.photo))
                     .resizable()
                     .scaledToFill()
-//                    .frame(height: 80)
-//                    .cornerRadius(5)
                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
                     .shadow(radius: 2)
                     .padding(.vertical, 2)
