@@ -14,57 +14,6 @@
 import SwiftUI
 import Kingfisher
 
-struct RestaurantDetails: Decodable {
-    let description: String
-    let popularDishes: [Dish]
-    let photos: [String]
-    let reviews: [Review]
-}
-
-struct Review: Decodable, Hashable {
-    let user: ReviewUser
-    let rating: Int
-    let text: String
-}
-
-struct ReviewUser: Decodable, Hashable {
-    let id: Int64
-    let username: String
-    let firstName: String
-    let lastName: String
-    let profileImage: String
-}
-
-//struct Dishe: Decodable, Hashable {
-struct Dish: Decodable {
-    let name: String
-    let price: String
-    let numPhotos: Int
-    let photo: String
-}
-
-class RestaurantDetailsViewModel: ObservableObject {
-    @Published var isLoading = true
-    @Published var details: RestaurantDetails?
-
-    init() {
-        // fetch my NESTED JSON here
-        let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/restaurant?id=0"
-
-        guard let url = URL(string: urlString) else { return }
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            // handle your errors properly
-
-            guard let data = data else { return }
-
-            DispatchQueue.main.async {
-                self.details = try? JSONDecoder().decode(RestaurantDetails.self, from: data)
-            }
-        }
-        .resume()
-    }
-}
-
 struct RestaurantDetailsView: View {
 
     @ObservedObject var vm: RestaurantDetailsViewModel
@@ -102,11 +51,16 @@ struct RestaurantDetailsView: View {
                         }
                     }
                     Spacer()
-                    Text("See more photos")
-                        .foregroundColor(.white)
-                        .font(.system(size: 14, weight: .regular))
-                        .frame(width: 80, alignment: .trailing)
-                        .multilineTextAlignment(.trailing)
+
+                    NavigationLink(
+                        destination: RestaurantPhotosView(photos: vm.details?.photos ?? []),
+                        label: {
+                            Text("See more photos")
+                                .foregroundColor(.white)
+                                .font(.system(size: 14, weight: .regular))
+                                .frame(width: 80, alignment: .trailing)
+                                .multilineTextAlignment(.trailing)
+                        })
                 }
                 .padding()
             }
@@ -144,7 +98,7 @@ struct RestaurantDetailsView: View {
                 }
                 .padding(.horizontal)
             }
-            
+
             if let reviews = vm.details?.reviews {
                 ReviewList(reviews: reviews)
             }
@@ -179,7 +133,7 @@ struct ReviewList: View {
                     VStack(alignment: .leading, spacing: 4) {
                         Text("\(review.user.firstName) \(review.user.lastName)")
                             .font(.system(size: 14, weight: .bold))
-                        
+
                         HStack(spacing: 4) {
                             ForEach(0..<review.rating, id: \.self) { num in
                                 Image(systemName: "star.fill")
