@@ -6,32 +6,45 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct RestaurantPhotosView: View {
 
     let photos: [String]
 
     var body: some View {
-        ScrollView {
-            // GRID
-            
-            LazyVGrid(
-                columns: [
-                    GridItem(.fixed(125), spacing: 4),
-                    GridItem(.fixed(125), spacing: 4),
-                    GridItem(.fixed(125), spacing: 4)
-                ],
-                spacing: 4
-            ) {
-                ForEach(0..<15, id: \.self) { num in
-                    Text("Placeholder")
-                        .padding()
-                        .background(.red)
+        GeometryReader { proxy in
+            ScrollView {
+                // GRID
+                LazyVGrid(
+                    columns: [
+                        GridItem(
+                            .adaptive(
+                                minimum: ((proxy.size.width / 3) - 4),
+                                maximum: 300
+                            ),
+                            spacing: 2
+                        ),
+                    ],
+                    spacing: 4
+                ) {
+                    ForEach(photos, id: \.self) { photoUrl in
+//                        Image("tapas")
+                        KFImage(URL(string: photoUrl))
+                            .resizable()
+                            .scaledToFill()
+                            .frame(
+                                width: ((proxy.size.width / 3) - 3),
+                                height: ((proxy.size.width / 3) - 3)
+                            )
+                            .clipped()
+                    }
                 }
+                .padding(.horizontal, 2)
             }
+            .navigationTitle("All Photos")
+            .navigationBarTitleDisplayMode(.inline)
         }
-        .navigationTitle("All Photos")
-        .navigationBarTitleDisplayMode(.inline)
     }
 }
 
@@ -57,4 +70,5 @@ struct RestaurantPhotosView: View {
             "https://letsbuildthatapp-videos.s3.us-west-2.amazonaws.com/73f69749-f986-46ac-9b8b-d7b1d42bddc5"
         ])
     }
+//    .previewLayout(.fixed(width: 800, height: 400))
 }
