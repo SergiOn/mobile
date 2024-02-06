@@ -12,35 +12,92 @@ struct RestaurantPhotosView: View {
 
     let photos: [String]
 
+//    @State var mode = "grid"
+    @State var mode = "list"
+
+    init(photos: [String]) {
+        self.photos = photos
+
+        // this changes every UISegmentControl in your application
+        UISegmentedControl.appearance().backgroundColor = .black
+        UISegmentedControl.appearance().selectedSegmentTintColor = .orange
+        let titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        UISegmentedControl.appearance().setTitleTextAttributes(titleTextAttributes, for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes(titleTextAttributes, for: .normal)
+    }
+
     var body: some View {
         GeometryReader { proxy in
             ScrollView {
-                // GRID
-                LazyVGrid(
-                    columns: [
-                        GridItem(
-                            .adaptive(
-                                minimum: ((proxy.size.width / 3) - 4),
-                                maximum: 300
-                            ),
-                            spacing: 2
-                        ),
-                    ],
-                    spacing: 4
-                ) {
-                    ForEach(photos, id: \.self) { photoUrl in
-//                        Image("tapas")
-                        KFImage(URL(string: photoUrl))
-                            .resizable()
-                            .scaledToFill()
-                            .frame(
-                                width: ((proxy.size.width / 3) - 3),
-                                height: ((proxy.size.width / 3) - 3)
+                Picker("View mode", selection: $mode) {
+                    Text("Grid").tag("grid")
+                    Text("List")
+                        .tag("list")
+                }
+                .pickerStyle(.segmented)
+                .padding()
+//                .colorMultiply(.blue)
+//                .background(.green)
+
+                if mode == "grid" {
+                    // GRID
+                    LazyVGrid(
+                        columns: [
+                            GridItem(
+                                .adaptive(
+                                    minimum: ((proxy.size.width / 3) - 4),
+                                    maximum: 300
+                                ),
+                                spacing: 2
                             )
-                            .clipped()
+                        ],
+                        spacing: 4
+                    ) {
+                        ForEach(photos, id: \.self) { photoUrl in
+                            KFImage(URL(string: photoUrl))
+                                .resizable()
+                                .scaledToFill()
+                                .frame(
+                                    width: ((proxy.size.width / 3) - 3),
+                                    height: ((proxy.size.width / 3) - 3)
+                                )
+                                .clipped()
+                        }
+                    }
+                    .padding(.horizontal, 2)
+                }
+
+                if mode == "list" {
+                    Text("list mode")
+                    
+                    ForEach(photos, id: \.self) { photoUrl in
+                        VStack(alignment: .leading, spacing: 8) {
+                            KFImage(URL(string: photoUrl))
+                                .resizable()
+                                .scaledToFill()
+
+                            HStack {
+                                Image(systemName: "heart")
+                                Image(systemName: "bubble.right")
+                                Image(systemName: "paperplane")
+                                Spacer()
+                                Image(systemName: "bookmark")
+                            }
+                            .padding(.horizontal, 8)
+                            .font(.system(size: 22))
+
+                            Text("Description for your post and it goes here, make sure to use a bunch of lines of text otherwise you never know what's going to happen.\n\nGreat job everyone")
+                                .font(.system(size: 14))
+                                .padding(.horizontal, 8)
+
+                            Text("Posted on 11/4/20")
+                                .font(.system(size: 14))
+                                .padding(.horizontal, 8)
+                                .foregroundColor(.gray)
+                        }
+                        .padding(.bottom)
                     }
                 }
-                .padding(.horizontal, 2)
             }
             .navigationTitle("All Photos")
             .navigationBarTitleDisplayMode(.inline)
