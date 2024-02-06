@@ -5,6 +5,9 @@
 //  Created by Serhii Onyshchenko on 05.02.2024.
 //
 
+// api
+// https://travel.letsbuildthatapp.com/travel_discovery/restaurant?id=0
+
 import SwiftUI
 import Kingfisher
 
@@ -14,7 +17,7 @@ struct RestaurantPhotosView: View {
 
     @State var mode: String = "grid"
     @State var shouldShowFullScreenModal: Bool = false
-//    @State var selectedPhoto: Int = 0
+    @State var selectedPhotoIndex: Int = 0
 
     init(photos: [String]) {
         self.photos = photos
@@ -39,40 +42,38 @@ struct RestaurantPhotosView: View {
                 .padding()
 //                .colorMultiply(.blue)
 //                .background(.green)
+                
+                Spacer()
+                    .fullScreenCover(isPresented: $shouldShowFullScreenModal) {
+                        ZStack {
+                            Color.black.ignoresSafeArea()
 
-                if mode == "grid" {
+                            RestaurantCarouselView(imageUrlString: photos, selectedIndex: selectedPhotoIndex)
+                                .padding(.top, 34)
+                                .padding(.bottom, 34)
 
-                    Spacer()
-                        .fullScreenCover(isPresented: $shouldShowFullScreenModal) {
-                            ZStack {
-                                Color.black
+                            VStack(alignment: .leading) {
+                                HStack(alignment: .top) {
+                                    Button(action: {
+                                        shouldShowFullScreenModal.toggle()
+                                    }, label: {
+                                        Image(systemName: "xmark")
+                                            .font(.system(size: 32, weight: .bold))
+                                            .foregroundColor(.white)
+                                            .padding()
+                                    })
+                                    .padding(.top, 50)
+                                    .padding(.leading, 14)
 
-//                                RestaurantCarouselView(imageUrlString: photos, selectedPhoto: selectedPhoto)
-                                RestaurantCarouselView(imageUrlString: photos)
-                                    .padding(.top, 34)
-                                    .padding(.bottom, 34)
-
-                                VStack(alignment: .leading) {
-                                    HStack(alignment: .top) {
-                                        Button(action: {
-                                            shouldShowFullScreenModal.toggle()
-                                        }, label: {
-                                            Image(systemName: "xmark")
-                                                .font(.system(size: 32, weight: .bold))
-                                                .foregroundColor(.white)
-                                                .padding()
-                                        })
-                                        .padding(.top, 50)
-                                        .padding(.leading, 14)
-
-                                        Spacer()
-                                    }
                                     Spacer()
                                 }
+                                Spacer()
                             }
-                            .ignoresSafeArea()
                         }
+                    }
+                    .opacity(shouldShowFullScreenModal ? 1 : 0)
 
+                if mode == "grid" {
                     // GRID
                     LazyVGrid(
                         columns: [
@@ -86,10 +87,9 @@ struct RestaurantPhotosView: View {
                         ],
                         spacing: 4
                     ) {
-//                        ForEach(Array(photos.enumerated()), id: \.element) { index, photoUrl in
-                        ForEach(photos, id: \.self) { photoUrl in
+                        ForEach(Array(photos.enumerated()), id: \.element) { index, photoUrl in
                             Button(action: {
-//                                selectedPhoto = index
+                                selectedPhotoIndex = index
                                 shouldShowFullScreenModal.toggle()
                             }, label: {
                                 KFImage(URL(string: photoUrl))

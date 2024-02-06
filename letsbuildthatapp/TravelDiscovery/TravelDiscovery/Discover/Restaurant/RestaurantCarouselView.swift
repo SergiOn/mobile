@@ -5,27 +5,30 @@
 //  Created by Serhii Onyshchenko on 06.02.2024.
 //
 
+// api
+// https://travel.letsbuildthatapp.com/travel_discovery/restaurant?id=0
+
 import SwiftUI
 import Kingfisher
 
 struct RestaurantCarouselView: View {
 
     let imageUrlString: [String]
-    @State var selectedPhoto: Int
+    @State var selectedIndex: Int
 
     init(imageUrlString: [String]) {
         self.imageUrlString = imageUrlString
-        self.selectedPhoto = 0
+        self.selectedIndex = 0
     }
 
-    init(imageUrlString: [String], selectedPhoto: Int) {
+    init(imageUrlString: [String], selectedIndex: Int) {
         self.imageUrlString = imageUrlString
-        self.selectedPhoto = selectedPhoto
+        self.selectedIndex = selectedIndex
     }
 
     var body: some View {
         VStack {
-            TabView(selection: $selectedPhoto) {
+            TabView(selection: $selectedIndex) {
                 ForEach(Array(imageUrlString.enumerated()), id: \.offset) { index, photoUrl in
                     KFImage(URL(string: photoUrl))
                         .resizable()
@@ -35,14 +38,15 @@ struct RestaurantCarouselView: View {
                 }
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
+//            .tabViewStyle(.page(indexDisplayMode: .always))
 
             HStack(spacing: 10) {
                 ForEach(0..<imageUrlString.count, id: \.self) { index in
-                    let isActive = index == selectedPhoto
+                    let isActive = index == selectedIndex
                     
                     Button {
                         withAnimation {
-                            selectedPhoto = index
+                            selectedIndex = index
                         }
                     } label: {
                         Circle()
