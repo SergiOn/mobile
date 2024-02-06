@@ -23,19 +23,20 @@ struct DestinationHeaderContainer: View {
     }
 
     var body: some View {
-        TabView(selection: $selectedPhoto) {
-            ForEach(Array(imageUrlString.enumerated()), id: \.offset) { index, photoUrl in
-                KFImage(URL(string: photoUrl))
-                    .resizable()
-                    .scaledToFill()
-                    .clipped()
-                    .tag(index)
+        VStack {
+            TabView(selection: $selectedPhoto) {
+                ForEach(Array(imageUrlString.enumerated()), id: \.offset) { index, photoUrl in
+                    KFImage(URL(string: photoUrl))
+                        .resizable()
+                        .scaledToFill()
+                        .clipped()
+                        .tag(index)
+                }
             }
-        }
 //            .tabViewStyle(PageTabViewStyle())
 //            .tabViewStyle(.page)
 //            .tabViewStyle(.page(indexDisplayMode: .always))
-        .tabViewStyle(.page(indexDisplayMode: .never))
+            .tabViewStyle(.page(indexDisplayMode: .never))
 //            .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
 //            .indexViewStyle(.page(backgroundDisplayMode: .always))
 //            .accentColor(.red)
@@ -43,21 +44,22 @@ struct DestinationHeaderContainer: View {
 //            .toolbarBackground(.red, for: .tabBar)
 //            .toolbarBackground(.visible, for: .tabBar)
 //            .toolbarColorScheme(.light, for: .tabBar)
-        .frame(height: 250)
+//            .frame(height: 250)
 
-        HStack(spacing: 10) {
-            ForEach(0..<imageUrlString.count, id: \.self) { index in
-                let isActive = index == selectedPhoto
-                
-                Button {
-                    withAnimation {
-                        selectedPhoto = index
+            HStack(spacing: 10) {
+                ForEach(0..<imageUrlString.count, id: \.self) { index in
+                    let isActive = index == selectedPhoto
+                    
+                    Button {
+                        withAnimation {
+                            selectedPhoto = index
+                        }
+                    } label: {
+                        Circle()
+                            .frame(width: 8)
+                            .foregroundColor(isActive ? .red : .black)
+                            .opacity(isActive ? 1 : 0.25)
                     }
-                } label: {
-                    Circle()
-                        .frame(width: 8)
-                        .foregroundColor(isActive ? .red : .black)
-                        .opacity(isActive ? 1 : 0.25)
                 }
             }
         }
@@ -74,6 +76,7 @@ struct DestinationHeaderContainer: View {
     ]
 
     return DestinationHeaderContainer(imageUrlString: imageUrlString)
+        .frame(height: 250)
 
 //    struct PreviewWrapper: View {
 //        let imageUrlString: [String] = [

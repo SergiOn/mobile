@@ -12,8 +12,9 @@ struct RestaurantPhotosView: View {
 
     let photos: [String]
 
-//    @State var mode = "grid"
-    @State var mode = "list"
+    @State var mode: String = "grid"
+    @State var shouldShowFullScreenModal: Bool = false
+//    @State var selectedPhoto: Int = 0
 
     init(photos: [String]) {
         self.photos = photos
@@ -40,6 +41,38 @@ struct RestaurantPhotosView: View {
 //                .background(.green)
 
                 if mode == "grid" {
+
+                    Spacer()
+                        .fullScreenCover(isPresented: $shouldShowFullScreenModal) {
+                            ZStack {
+                                Color.black
+
+//                                RestaurantCarouselView(imageUrlString: photos, selectedPhoto: selectedPhoto)
+                                RestaurantCarouselView(imageUrlString: photos)
+                                    .padding(.top, 34)
+                                    .padding(.bottom, 34)
+
+                                VStack(alignment: .leading) {
+                                    HStack(alignment: .top) {
+                                        Button(action: {
+                                            shouldShowFullScreenModal.toggle()
+                                        }, label: {
+                                            Image(systemName: "xmark")
+                                                .font(.system(size: 32, weight: .bold))
+                                                .foregroundColor(.white)
+                                                .padding()
+                                        })
+                                        .padding(.top, 50)
+                                        .padding(.leading, 14)
+
+                                        Spacer()
+                                    }
+                                    Spacer()
+                                }
+                            }
+                            .ignoresSafeArea()
+                        }
+
                     // GRID
                     LazyVGrid(
                         columns: [
@@ -53,23 +86,27 @@ struct RestaurantPhotosView: View {
                         ],
                         spacing: 4
                     ) {
+//                        ForEach(Array(photos.enumerated()), id: \.element) { index, photoUrl in
                         ForEach(photos, id: \.self) { photoUrl in
-                            KFImage(URL(string: photoUrl))
-                                .resizable()
-                                .scaledToFill()
-                                .frame(
-                                    width: ((proxy.size.width / 3) - 3),
-                                    height: ((proxy.size.width / 3) - 3)
-                                )
-                                .clipped()
+                            Button(action: {
+//                                selectedPhoto = index
+                                shouldShowFullScreenModal.toggle()
+                            }, label: {
+                                KFImage(URL(string: photoUrl))
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(
+                                        width: ((proxy.size.width / 3) - 3),
+                                        height: ((proxy.size.width / 3) - 3)
+                                    )
+                                    .clipped()
+                            })
                         }
                     }
                     .padding(.horizontal, 2)
                 }
 
                 if mode == "list" {
-                    Text("list mode")
-                    
                     ForEach(photos, id: \.self) { photoUrl in
                         VStack(alignment: .leading, spacing: 8) {
                             KFImage(URL(string: photoUrl))
@@ -128,4 +165,8 @@ struct RestaurantPhotosView: View {
         ])
     }
 //    .previewLayout(.fixed(width: 800, height: 400))
+}
+
+#Preview {
+    DiscoverView()
 }

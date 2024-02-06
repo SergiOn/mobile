@@ -127,6 +127,7 @@ struct PopularDestinationDetailsView: View {
         ScrollView {
             let _ = print(vm.destinationDetails?.photos ?? [])
             DestinationHeaderContainer(imageUrlString: vm.destinationDetails?.photos ?? [])
+                .frame(height: 250)
 
             VStack(alignment: .leading) {
                 Text(destination.name)

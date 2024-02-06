@@ -204,3 +204,7 @@ struct DishCell: View {
         RestaurantDetailsView(restaurant: .init(name: "Japan's Finest Tapas", imageName: "tapas"))
     }
 }
+
+#Preview {
+    DiscoverView()
+}
