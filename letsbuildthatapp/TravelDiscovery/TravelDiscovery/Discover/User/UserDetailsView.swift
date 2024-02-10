@@ -38,7 +38,7 @@ struct UserDetailsView: View {
                 Text("YouTuber, Vlogger, Travel Creator")
                     .font(.system(size: 14, weight: .regular))
                     .foregroundColor(Color(.lightGray))
-                
+
                 HStack(spacing: 12) {
                     VStack {
                         Text("59,394")
@@ -69,7 +69,7 @@ struct UserDetailsView: View {
                     .padding(.vertical, 8)
                     .background(Color.orange)
                     .cornerRadius(.infinity)
-                    
+
                     Button(action: {}, label: {
                         Spacer()
                         Text("Contact")
@@ -83,11 +83,57 @@ struct UserDetailsView: View {
                 .font(.system(size: 12, weight: .semibold))
 
                 ForEach(0..<10, id: \.self) { num in
-                    HStack {
-                        Spacer()
+                    VStack(alignment: .leading) {
+                        Image("japan")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(height: 200)
+                            .clipped()
+
+                        HStack {
+                            Image(user.imageName)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 44)
+                                .clipShape(Circle())
+
+                            VStack(alignment: .leading) {
+                                Text("This is my post title")
+                                    .font(.system(size: 14, weight: .semibold))
+                                Text("500k views")
+                                    .font(.system(size: 12, weight: .regular))
+                                    .foregroundColor(.gray)
+                            }
+                        }
+//                        .padding(.top, -30)
+                        .padding(.horizontal, 8)
+
+                        HStack {
+                            ForEach(0..<3, id: \.self) { num in
+                                Text("#Traveling")
+                                    .font(.system(size: 12, weight: .regular))
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 4)
+                                    .foregroundColor(Color(#colorLiteral(
+                                        red: 0.07797152549,
+                                        green: 0.513774395,
+                                        blue: 0.9998757243,
+                                        alpha: 1
+                                    )))
+                                    .background(Color(#colorLiteral(
+                                        red: 0.9057956338,
+                                        green: 0.9333867431,
+                                        blue: 0.9763537049,
+                                        alpha: 1
+                                    )))
+                                    .cornerRadius(20)
+                            }
+                        }
+                        .padding(.horizontal, 8)
+                        .padding(.bottom)
                     }
-                    .frame(height: 200)
-                    .background(Color(white: 0.8))
+//                    .frame(height: 200)
+                    .background(Color(white: 1))
                     .cornerRadius(12)
                     .shadow(color: .init(white: 0.8), radius: 5, x: 0, y: 4)
                 }
