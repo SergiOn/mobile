@@ -15,8 +15,8 @@ class RestaurantDetailsViewModel: ObservableObject {
     init() {
         // fetch my NESTED JSON here
         let urlString = "https://travel.letsbuildthatapp.com/travel_discovery/restaurant?id=0"
-
         guard let url = URL(string: urlString) else { return }
+
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             // handle your errors properly
 

@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct TrendingCreatorsView: View {
-    
+
     var users: [User] = [
-        .init(name: "Amy Adams", imageName: "amy"),
-        .init(name: "Billy", imageName: "billy"),
-        .init(name: "Sam Smith", imageName: "sam"),
+        .init(id: 0, name: "Amy Adams", imageName: "amy"),
+        .init(id: 1, name: "Billy", imageName: "billy"),
+        .init(id: 2, name: "Sam Smith", imageName: "sam"),
     ]
 
     var body: some View {
@@ -31,7 +31,7 @@ struct TrendingCreatorsView: View {
                 HStack(alignment: .top, spacing: 12) {
                     ForEach(users, id: \.self) { user in
                         NavigationLink(
-                            destination: UserDetailsView(user: user),
+                            destination: NavigationLazyView(UserDetailsView(user: user)),
                             label: {
                                 DiscoverUserView(user: user)
                             })
@@ -55,7 +55,7 @@ struct DiscoverUserView: View {
                 .scaledToFill()
                 .frame(width: 60, height: 60)
                 .cornerRadius(.infinity)
-            
+
             Text(user.name)
                 .font(.system(size: 11, weight: .semibold))
                 .multilineTextAlignment(.center)

@@ -8,6 +8,7 @@
 import Foundation
 
 struct User: Hashable {
+    let id: Int64
     let name: String
     let imageName: String
 }
